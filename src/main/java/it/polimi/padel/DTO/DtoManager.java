@@ -1,5 +1,8 @@
 package it.polimi.padel.DTO;
 
+import it.polimi.padel.model.Campo;
+import it.polimi.padel.model.Partita;
+import it.polimi.padel.model.Prenotazione;
 import it.polimi.padel.model.Utente;
 
 public class DtoManager {
@@ -18,5 +21,30 @@ public class DtoManager {
         responseSignupDto.setCognome(utente.getCognome());
         responseSignupDto.setEmail(utente.getEmail());
         return responseSignupDto;
+    }
+
+    public static Prenotazione getPrenotazioneFromRequestPrenotazioneDto(RequestPrenotazioneDto requestPrenotazioneDto) {
+        Prenotazione prenotazione = new Prenotazione();
+        prenotazione.setDa(requestPrenotazioneDto.getDa());
+        prenotazione.setA(requestPrenotazioneDto.getA());
+        return prenotazione;
+    }
+
+    public static ResponsePartitaDto getResponsePartitaDtoFromPartita(Prenotazione partita) {
+        ResponsePartitaDto responsePartitaDto = new ResponsePartitaDto();
+        responsePartitaDto.setDa(partita.getDa());
+        responsePartitaDto.setA(partita.getA());
+        responsePartitaDto.setNomeAvversario(partita.getPartita().getUtente2().getNome());
+        responsePartitaDto.setCognomeAvversario(partita.getPartita().getUtente2().getCognome());
+        responsePartitaDto.setIdAvversario(partita.getPartita().getUtente2().getId());
+        responsePartitaDto.setCampo(getCampoDtoFromCampo(partita.getCampo()));
+        return responsePartitaDto;
+    }
+
+    public static CampoDto getCampoDtoFromCampo(Campo campo) {
+        CampoDto campoDto = new CampoDto();
+        campoDto.setNome(campo.getNome());
+        campoDto.setId(campo.getId());
+        return campoDto;
     }
 }

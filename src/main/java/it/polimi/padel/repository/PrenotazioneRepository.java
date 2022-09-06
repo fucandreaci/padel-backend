@@ -14,6 +14,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PrenotazioneRepository extends CrudRepository<Prenotazione, Integer> {
-    @Query("SELECT p FROM Prenotazione p WHERE p.campo.id = ?1 AND p.da < ?3 AND p.a > ?2")
-    public List<Prenotazione> isCampoLibero (Integer idCampo, LocalDateTime da, LocalDateTime a);
+    @Query("SELECT p FROM Prenotazione p WHERE p.campo.id = ?1 AND p.da <= ?3 AND p.a >= ?2")
+    List<Prenotazione> isCampoLibero (Integer idCampo, LocalDateTime da, LocalDateTime a);
 }

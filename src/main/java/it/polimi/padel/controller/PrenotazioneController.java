@@ -6,6 +6,8 @@ package it.polimi.padel.controller;/*
  * Copyright © 2022-2022 Andrea Fucci
  */
 
+import it.polimi.padel.service.PrenotazioneService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,4 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/prenotazioni", produces = "application/json")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PrenotazioneController {
+    @Autowired
+    private PrenotazioneService prenotazioneService;
+
+
 }

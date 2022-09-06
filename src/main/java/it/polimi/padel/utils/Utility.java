@@ -6,6 +6,7 @@ package it.polimi.padel.utils;/*
  * Copyright © 2022-2022 Andrea Fucci
  */
 
+import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 
 public class Utility {
@@ -15,4 +16,10 @@ public class Utility {
 
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
+
+    public static boolean isValidDaADate (LocalDateTime da, LocalDateTime a) {
+        return da.isBefore(a);
+    }
+
+
 }
