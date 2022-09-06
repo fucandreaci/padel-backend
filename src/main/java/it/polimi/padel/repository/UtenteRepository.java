@@ -4,4 +4,5 @@ import it.polimi.padel.model.Utente;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UtenteRepository extends CrudRepository<Utente, Integer> {
+    Utente findByEmail(String email);
 }
