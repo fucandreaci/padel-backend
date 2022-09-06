@@ -1,6 +1,7 @@
 package it.polimi.padel.service;
 
 import it.polimi.padel.DTO.*;
+import it.polimi.padel.exception.ErrorResponse;
 import it.polimi.padel.exception.UserException;
 import it.polimi.padel.model.Ruolo;
 import it.polimi.padel.model.Utente;
@@ -9,6 +10,7 @@ import it.polimi.padel.security.JwtTokenUtil;
 import it.polimi.padel.security.SecurityConfig;
 import it.polimi.padel.utils.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -67,7 +69,8 @@ public class UtenteService {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         } catch (DisabledException | BadCredentialsException e) {
-            throw new UserException(e.getMessage());
+            ErrorResponse err = new ErrorResponse(e.getMessage(), HttpStatus.UNAUTHORIZED);
+            throw new UserException(err.getMessage(), err.getStatus());
         }
     }
 
@@ -93,11 +96,11 @@ public class UtenteService {
      */
     public ResponseSignupDto signup (RequestSignupDto requestSignupDto) throws UserException {
         if (findByEmail(requestSignupDto.getEmail()) != null) {
-            throw new UserException("Email già in uso");
+            throw new UserException("Email già in uso", HttpStatus.BAD_REQUEST);
         }
 
         if (!Utility.isValidEmail(requestSignupDto.getEmail())) {
-            throw new UserException("Email non valida");
+            throw new UserException("Email non valida", HttpStatus.BAD_REQUEST);
         }
 
         Utente utente = DtoManager.getUtenteFromRequestSignupDto(requestSignupDto);

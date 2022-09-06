@@ -6,7 +6,8 @@ package it.polimi.padel.repository;/*
  * Copyright © 2022-2022 Andrea Fucci
  */
 
+import it.polimi.padel.model.Campo;
 import org.springframework.data.repository.CrudRepository;
 
-public interface CampoRepository extends CrudRepository<CampoRepository, Integer> {
+public interface CampoRepository extends CrudRepository<Campo, Integer> {
 }

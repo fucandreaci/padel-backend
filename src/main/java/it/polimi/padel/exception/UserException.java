@@ -1,7 +1,11 @@
 package it.polimi.padel.exception;
 
-public class UserException extends Exception{
-    public UserException(String message) {
-        super(message);
+import lombok.Data;
+import org.springframework.http.HttpStatus;
+
+@Data
+public class UserException extends GenericException{
+    public UserException(String message, HttpStatus status) {
+        super(status, message);
     }
 }
