@@ -1,12 +1,13 @@
 package it.polimi.padel.service;
 
-import it.polimi.padel.DTO.JWTPayload;
-import it.polimi.padel.DTO.RequestLoginDto;
-import it.polimi.padel.DTO.ResponseLoginDto;
+import it.polimi.padel.DTO.*;
 import it.polimi.padel.exception.UserException;
+import it.polimi.padel.model.Ruolo;
 import it.polimi.padel.model.Utente;
 import it.polimi.padel.repository.UtenteRepository;
 import it.polimi.padel.security.JwtTokenUtil;
+import it.polimi.padel.security.SecurityConfig;
+import it.polimi.padel.utils.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -84,4 +85,26 @@ public class UtenteService {
         return new ResponseLoginDto(token, utente.getRuolo().name(), utente.getId());
     }
 
+    /**
+     * Esegue la registrazione di un nuovo utente
+     * @param requestSignupDto
+     * @return
+     * @throws UserException
+     */
+    public ResponseSignupDto signup (RequestSignupDto requestSignupDto) throws UserException {
+        if (findByEmail(requestSignupDto.getEmail()) != null) {
+            throw new UserException("Email già in uso");
+        }
+
+        if (!Utility.isValidEmail(requestSignupDto.getEmail())) {
+            throw new UserException("Email non valida");
+        }
+
+        Utente utente = DtoManager.getUtenteFromRequestSignupDto(requestSignupDto);
+        utente.setRuolo(Ruolo.USER);
+        utente.setPassword(SecurityConfig.passwordEncoder().encode(utente.getPassword()));
+
+        utente = utenteRepository.save(utente);
+        return DtoManager.getResponseSignupDtoFromUtente(utente);
+    }
 }
