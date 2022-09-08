@@ -20,16 +20,14 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 public class OrarioStruttura implements JsonParsable{
     private String giorno;
-    private String apertura;
-    private String chiusura;
+    private String orario;
 
 
     @Override
     public void parseJson(JSONObject json) throws GenericException {
         try {
             this.setGiorno(json.getString("giorno"));
-            this.setApertura(json.getString("apertura"));
-            this.setChiusura(json.getString("chiusura"));
+            this.setOrario(json.getString("orario"));
         } catch (JSONException e) {
             throw new ParseException("Errore nel parsing dell'orario della struttura", HttpStatus.INTERNAL_SERVER_ERROR);
         }
