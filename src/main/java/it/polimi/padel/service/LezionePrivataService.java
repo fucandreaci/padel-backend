@@ -34,10 +34,21 @@ public class LezionePrivataService {
     @Autowired
     private MaestroService maestroService;
 
+    /**
+     * Prenota una lezione privata
+     * @param lezionePrivataDto
+     * @param richiedente
+     * @return
+     * @throws GenericException
+     */
     public ResponseLezionePrivataDto prenotaLezionePrivata (RequestLezionePrivataDto lezionePrivataDto, Utente richiedente) throws GenericException {
         Maestro maestro = maestroService.getMaestroById(lezionePrivataDto.getIdMaestro());
         if (maestro == null) {
             throw new MaestroNotFoundException("Il maestro non esiste", HttpStatus.NOT_FOUND);
+        }
+
+        if (prenotazioneService.isMaestroLibero(maestro.getId(), lezionePrivataDto.getDa(), lezionePrivataDto.getA())) {
+            throw new GenericException(HttpStatus.BAD_REQUEST, "Il maestro è già impegnato");
         }
 
         LezionePrivata lezionePrivata = new LezionePrivata();
@@ -50,6 +61,5 @@ public class LezionePrivataService {
         prenotazione = prenotazioneService.savePrenotazione(prenotazione);
 
         return DtoManager.getResponseLezionePrivataDtoFromLezionePrivata(prenotazione);
-        //TODO: test
     }
 }

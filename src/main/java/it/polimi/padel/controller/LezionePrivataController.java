@@ -27,6 +27,11 @@ public class LezionePrivataController {
     @Autowired
     private UtenteService utenteService;
 
+    /**
+     * Endpoint per prenotare una lezione privata
+     * @param lezionePrivataDto
+     * @return
+     */
     @PostMapping("")
     public ResponseEntity<?> prenotaLezionePrivata(@Valid @RequestBody RequestLezionePrivataDto lezionePrivataDto) {
         Utente richiedente = utenteService.findFromJWT();

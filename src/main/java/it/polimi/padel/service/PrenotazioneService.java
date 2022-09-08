@@ -31,14 +31,35 @@ public class PrenotazioneService {
     @Autowired
     private CampoService campoService;
 
+    /**
+     * Check se il campo specificato è libero
+     * @param idCampo
+     * @param da
+     * @param a
+     * @return
+     */
     public boolean isCampoLibero (Integer idCampo, LocalDateTime da, LocalDateTime a) {
         return !prenotazioneRepository.isCampoLibero(idCampo, da, a).isEmpty();
     }
 
+    /**
+     * Check se il maestro è libero
+     *
+     * @param idMaestro
+     * @param da
+     * @param a
+     * @return
+     */
     public boolean isMaestroLibero (Integer idMaestro, LocalDateTime da, LocalDateTime a) {
         return !prenotazioneRepository.isMaestroLibero(idMaestro, da, a).isEmpty();
     }
 
+    /**
+     * Esegui la prenotazione di un campo
+     * @param requestPrenotazioneDto
+     * @return
+     * @throws GenericException
+     */
     public Prenotazione prenotaCampo (RequestPrenotazioneDto requestPrenotazioneDto) throws GenericException {
         Campo campo = campoService.getCampoById(requestPrenotazioneDto.getIdCampo());
         if (campo == null) {
@@ -60,6 +81,11 @@ public class PrenotazioneService {
         return prenotazione;
     }
 
+    /**
+     * Salva la prenotazione sul db
+     * @param prenotazione
+     * @return
+     */
     public Prenotazione savePrenotazione (Prenotazione prenotazione) {
         return prenotazioneRepository.save(prenotazione);
     }
