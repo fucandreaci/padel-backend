@@ -1,7 +1,7 @@
 package it.polimi.padel.DTO;/*
- * File: RequestPrenotazioneDto
+ * File: RequestPartitaDto
  * Project: Padel Backend
- * File Created: 06/09/22 - 18:36
+ * File Created: 06/09/22 - 18:57
  * Author: Andrea Fucci (fucciandrea01@gmail.com)
  * Copyright © 2022-2022 Andrea Fucci
  */
@@ -11,18 +11,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestPrenotazioneDto {
+public class RequestLezionePrivataDto extends RequestPrenotazioneDto{
     @NotNull
-    private Integer idCampo;
-
-    @NotNull
-    private LocalDateTime da; //FIXME: Vengono decrementate 2 ore
-
-    @NotNull
-    private LocalDateTime a; //FIXME: Vengono decrementate 2 ore
+    private Integer idMaestro;
 }

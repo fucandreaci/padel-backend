@@ -47,4 +47,15 @@ public class DtoManager {
         campoDto.setId(campo.getId());
         return campoDto;
     }
+
+    public static ResponseLezionePrivataDto getResponseLezionePrivataDtoFromLezionePrivata(Prenotazione lezionePrivata) {
+        ResponseLezionePrivataDto responseLezionePrivataDto = new ResponseLezionePrivataDto();
+        responseLezionePrivataDto.setDa(lezionePrivata.getDa());
+        responseLezionePrivataDto.setA(lezionePrivata.getA());
+        responseLezionePrivataDto.setNomeMaestro(lezionePrivata.getLezionePrivata().getMaestro().getNome());
+        responseLezionePrivataDto.setCognomeMaestro(lezionePrivata.getLezionePrivata().getMaestro().getCognome());
+        responseLezionePrivataDto.setIdMaestro(lezionePrivata.getLezionePrivata().getMaestro().getId());
+        responseLezionePrivataDto.setCampo(getCampoDtoFromCampo(lezionePrivata.getCampo()));
+        return responseLezionePrivataDto;
+    }
 }

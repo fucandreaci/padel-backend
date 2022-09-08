@@ -40,6 +40,10 @@ public class PartitaService {
             throw new UserException("L'avversario non esiste", HttpStatus.NOT_FOUND);
         }
 
+        if (avversario.getId() == richiedente.getId()) {
+            throw new UserException("Non puoi giocare contro te stesso", HttpStatus.BAD_REQUEST);
+        }
+
         Partita partita = new Partita();
         partita.setUtente1(richiedente);
         partita.setUtente2(avversario);

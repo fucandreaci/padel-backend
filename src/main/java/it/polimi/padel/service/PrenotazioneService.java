@@ -35,6 +35,10 @@ public class PrenotazioneService {
         return !prenotazioneRepository.isCampoLibero(idCampo, da, a).isEmpty();
     }
 
+    public boolean isMaestroLibero (Integer idMaestro, LocalDateTime da, LocalDateTime a) {
+        return !prenotazioneRepository.isMaestroLibero(idMaestro, da, a).isEmpty();
+    }
+
     public Prenotazione prenotaCampo (RequestPrenotazioneDto requestPrenotazioneDto) throws GenericException {
         Campo campo = campoService.getCampoById(requestPrenotazioneDto.getIdCampo());
         if (campo == null) {
