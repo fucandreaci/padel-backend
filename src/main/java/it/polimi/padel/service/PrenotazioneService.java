@@ -11,8 +11,10 @@ import it.polimi.padel.DTO.RequestPrenotazioneDto;
 import it.polimi.padel.exception.CampoNotFoundException;
 import it.polimi.padel.exception.CampoOccupatoException;
 import it.polimi.padel.exception.GenericException;
+import it.polimi.padel.exception.StrutturaChiusaException;
 import it.polimi.padel.model.Campo;
 import it.polimi.padel.model.Prenotazione;
+import it.polimi.padel.model.parsables.OrarioStruttura;
 import it.polimi.padel.repository.PrenotazioneRepository;
 import it.polimi.padel.utils.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional
@@ -30,6 +34,9 @@ public class PrenotazioneService {
 
     @Autowired
     private CampoService campoService;
+
+    @Autowired
+    private InformazioniService informazioniService;
 
     /**
      * Check se il campo specificato è libero
@@ -76,6 +83,15 @@ public class PrenotazioneService {
         if (!isCampoLibero(campo.getId(), prenotazione.getDa(), prenotazione.getA())) {
             throw new CampoOccupatoException("Campo non disponibile", HttpStatus.BAD_REQUEST);
         }
+
+        DayOfWeek dayOfWeek = prenotazione.getDa().getDayOfWeek();
+        int giornoDellaSettimana = dayOfWeek.getValue();
+
+        OrarioStruttura orarioApertura = informazioniService.getOrariApertura().get(giornoDellaSettimana);
+        if (!Utility.isStrutturaAperta(orarioApertura, requestPrenotazioneDto.getDa(), requestPrenotazioneDto.getA())) {
+            throw new StrutturaChiusaException("La struttura è chiusa", HttpStatus.BAD_REQUEST);
+        }
+
         //TODO: manage coupon
 
         return prenotazione;

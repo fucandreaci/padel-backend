@@ -6,7 +6,10 @@ package it.polimi.padel.utils;/*
  * Copyright © 2022-2022 Andrea Fucci
  */
 
+import it.polimi.padel.model.parsables.OrarioStruttura;
+
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.regex.Pattern;
 
 public class Utility {
@@ -19,6 +22,13 @@ public class Utility {
 
     public static boolean isValidDaADate (LocalDateTime da, LocalDateTime a) {
         return da.isBefore(a);
+    }
+
+    public static boolean isStrutturaAperta (OrarioStruttura orarioStruttura, LocalDateTime da, LocalDateTime a) {
+        LocalTime daTime = da.toLocalTime();
+        LocalTime aTime = a.toLocalTime();
+
+        return orarioStruttura.getDalle().isBefore(daTime) && orarioStruttura.getAlle().isAfter(aTime);
     }
 
 
