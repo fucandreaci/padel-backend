@@ -31,7 +31,7 @@ public class OrarioStruttura implements JsonParsable{
         try {
             this.setGiorno(json.getString("giorno"));
             this.setDalle(LocalTime.parse(json.getString("dalle")));
-            this.setDalle(LocalTime.parse(json.getString("alle")));
+            this.setAlle(LocalTime.parse(json.getString("alle")));
         } catch (JSONException e) {
             throw new ParseException("Errore nel parsing dell'orario della struttura", HttpStatus.INTERNAL_SERVER_ERROR);
         }

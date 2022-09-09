@@ -80,12 +80,12 @@ public class PrenotazioneService {
             throw new GenericException(HttpStatus.BAD_REQUEST, "Date non valide");
         }
 
-        if (!isCampoLibero(campo.getId(), prenotazione.getDa(), prenotazione.getA())) {
+        /*if (!isCampoLibero(campo.getId(), prenotazione.getDa(), prenotazione.getA())) {
             throw new CampoOccupatoException("Campo non disponibile", HttpStatus.BAD_REQUEST);
-        }
+        }*/
 
         DayOfWeek dayOfWeek = prenotazione.getDa().getDayOfWeek();
-        int giornoDellaSettimana = dayOfWeek.getValue();
+        int giornoDellaSettimana = dayOfWeek.getValue() - 1;
 
         OrarioStruttura orarioApertura = informazioniService.getOrariApertura().get(giornoDellaSettimana);
         if (!Utility.isStrutturaAperta(orarioApertura, requestPrenotazioneDto.getDa(), requestPrenotazioneDto.getA())) {

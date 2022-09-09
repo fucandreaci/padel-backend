@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class RequestPartitaDto extends RequestPrenotazioneDto{
 
 }
