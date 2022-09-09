@@ -18,8 +18,4 @@ public class Partita {
     @OneToOne
     @JoinColumn(name = "id_utente1")
     private Utente utente1;
-
-    @OneToOne
-    @JoinColumn(name = "id_utente2")
-    private Utente utente2;
 }

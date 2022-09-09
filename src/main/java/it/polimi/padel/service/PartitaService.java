@@ -20,7 +20,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 
 @Service
 @Transactional(rollbackOn = GenericException.class)
@@ -35,18 +34,8 @@ public class PartitaService {
     private PrenotazioneService prenotazioneService;
 
     public ResponsePartitaDto prenotaPartita (RequestPartitaDto requestPartitaDto, Utente richiedente) throws GenericException {
-        Utente avversario = utenteService.findById(requestPartitaDto.getIdAvversario());
-        if (avversario == null) {
-            throw new UserException("L'avversario non esiste", HttpStatus.NOT_FOUND);
-        }
-
-        if (avversario.getId() == richiedente.getId()) {
-            throw new UserException("Non puoi giocare contro te stesso", HttpStatus.BAD_REQUEST);
-        }
-
         Partita partita = new Partita();
         partita.setUtente1(richiedente);
-        partita.setUtente2(avversario);
         partita = partitaRepository.save(partita);
 
         Prenotazione prenotazione = prenotazioneService.prenotaCampo(requestPartitaDto);

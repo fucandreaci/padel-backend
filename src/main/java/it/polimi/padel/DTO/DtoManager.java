@@ -34,9 +34,6 @@ public class DtoManager {
         ResponsePartitaDto responsePartitaDto = new ResponsePartitaDto();
         responsePartitaDto.setDa(partita.getDa());
         responsePartitaDto.setA(partita.getA());
-        responsePartitaDto.setNomeAvversario(partita.getPartita().getUtente2().getNome());
-        responsePartitaDto.setCognomeAvversario(partita.getPartita().getUtente2().getCognome());
-        responsePartitaDto.setIdAvversario(partita.getPartita().getUtente2().getId());
         responsePartitaDto.setCampo(getCampoDtoFromCampo(partita.getCampo()));
         return responsePartitaDto;
     }

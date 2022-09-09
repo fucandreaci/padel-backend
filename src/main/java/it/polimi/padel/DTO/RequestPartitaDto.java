@@ -16,6 +16,5 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestPartitaDto extends RequestPrenotazioneDto{
-    @NotNull
-    private Integer idAvversario;
+
 }

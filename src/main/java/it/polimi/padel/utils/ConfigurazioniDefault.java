@@ -26,7 +26,7 @@ public class ConfigurazioniDefault {
     @Bean
     public void creaOrari() {
         if (informazioniService.getByChiave(Costanti.ORARI) == null) {
-            informazioniService.creaInformazione(Costanti.ORARI, "[{\"giorno\":\"Lunedì\",\"orario\":\"10:00 - 12:00\"},{\"giorno\":\"Martedì\",\"orario\":\"10:00 - 12:00\"},{\"giorno\":\"Mercoledì\",\"orario\":\"10:00 - 12:00\"},{\"giorno\":\"Giovedì\",\"orario\":\"10:00 - 12:00\"},{\"giorno\":\"Venerdì\",\"orario\":\"10:00 - 12:00\"},{\"giorno\":\"Sabato\",\"orario\":\"10:00 - 12:00\"},{\"giorno\":\"Domenica\",\"orario\":\"10:00 - 12:00\"}]");
+            informazioniService.creaInformazione(Costanti.ORARI, "[{\"giorno\":\"Lunedì\",\"dalle\":\"10:00\",\"alle\":\"20:00\"},{\"giorno\":\"Martedì\",\"dalle\":\"10:00\",\"alle\":\"20:00\"},{\"giorno\":\"Mercoledì\",\"dalle\":\"10:00\",\"alle\":\"20:00\"},{\"giorno\":\"Giovedì\",\"dalle\":\"10:00\",\"alle\":\"20:00\"},{\"giorno\":\"Venerdì\",\"dalle\":\"10:00\",\"alle\":\"20:00\"},{\"giorno\":\"Sabato\",\"dalle\":\"10:00\",\"alle\":\"20:00\"},{\"giorno\":\"Domenica\",\"dalle\":\"10:00\",\"alle\":\"20:00\"}]");
         }
     }
 
