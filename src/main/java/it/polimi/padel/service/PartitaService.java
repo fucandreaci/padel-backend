@@ -33,6 +33,13 @@ public class PartitaService {
     @Autowired
     private PrenotazioneService prenotazioneService;
 
+    /**
+     * Esegui la prenotazione di una nuova partita specificando il campo e l'orario
+     * @param requestPartitaDto
+     * @param richiedente
+     * @return
+     * @throws GenericException
+     */
     public ResponsePartitaDto prenotaPartita (RequestPartitaDto requestPartitaDto, Utente richiedente) throws GenericException {
         Partita partita = new Partita();
         partita.setUtente1(richiedente);

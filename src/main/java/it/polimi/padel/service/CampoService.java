@@ -19,6 +19,11 @@ public class CampoService {
     @Autowired
     private CampoRepository campoRepository;
 
+    /**
+     * Ritorna il campo con l'id specificato
+     * @param id
+     * @return
+     */
     public Campo getCampoById (Integer id) {
         return campoRepository.findById(id).orElse(null);
     }

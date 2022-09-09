@@ -6,6 +6,14 @@ package it.polimi.padel.service;/*
  * Copyright © 2022-2022 Andrea Fucci
  */
 
+import it.polimi.padel.DTO.RequestAmiciziaDto;
+import it.polimi.padel.exception.AmiciziaException;
+import it.polimi.padel.exception.UserException;
+import it.polimi.padel.model.Amici;
+import it.polimi.padel.model.Utente;
+import it.polimi.padel.repository.AmiciRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -13,4 +21,44 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 public class AmiciService {
+    @Autowired
+    private AmiciRepository amiciRepository;
+
+    @Autowired
+    private UtenteService utenteService;
+
+    /**
+     * Controllo che l'utente non abbia già una richiesta di amicizia inviata all'utente specificato
+     * @param utente1
+     * @param utente2
+     * @return
+     */
+    private boolean existAmicizia (Utente utente1, Utente utente2) {
+        return amiciRepository.findByUtente1AndUtente2(utente1, utente2) != null;
+    }
+
+    /**
+     * Invia una richiesta di amicizia
+     * @param requestAmiciziaDto
+     * @param richiedente
+     * @throws UserException
+     * @throws AmiciziaException
+     */
+    public void inviaRichiestaAmicizia (RequestAmiciziaDto requestAmiciziaDto, Utente richiedente) throws UserException, AmiciziaException {
+        Utente amicoDaAgg = utenteService.findById(requestAmiciziaDto.getIdUtente());
+        if (amicoDaAgg == null) {
+            throw new UserException("L'utente non esiste", HttpStatus.NOT_FOUND);
+        }
+
+        if (existAmicizia(richiedente, amicoDaAgg)) {
+            throw new AmiciziaException("L'amicizia esiste già", HttpStatus.BAD_REQUEST);
+        }
+
+        Amici amici = new Amici();
+        amici.setUtente1(richiedente);
+        amici.setUtente2(amicoDaAgg);
+        amici.setUtente(richiedente);
+
+        amiciRepository.save(amici);
+    }
 }

@@ -19,6 +19,11 @@ public class MaestroService {
     @Autowired
     private MaestroRepository maestroRepository;
 
+    /**
+     * Ritorna il maestro con l'id specificato
+     * @param id
+     * @return
+     */
     public Maestro getMaestroById (int id) {
         return maestroRepository.findById(id).orElse(null);
     }

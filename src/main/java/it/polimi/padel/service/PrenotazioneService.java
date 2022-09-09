@@ -80,6 +80,7 @@ public class PrenotazioneService {
             throw new GenericException(HttpStatus.BAD_REQUEST, "Date non valide");
         }
 
+        // FIXME: Non funziona bene
         /*if (!isCampoLibero(campo.getId(), prenotazione.getDa(), prenotazione.getA())) {
             throw new CampoOccupatoException("Campo non disponibile", HttpStatus.BAD_REQUEST);
         }*/

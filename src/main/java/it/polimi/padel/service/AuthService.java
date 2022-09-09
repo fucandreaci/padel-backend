@@ -21,6 +21,12 @@ public class AuthService implements UserDetailsService {
     @Autowired
     private UtenteService userService;
 
+    /**
+     * Ritorna l'utente con l'email specificata
+     * @param email
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Utente user = userService.findByEmail(email);

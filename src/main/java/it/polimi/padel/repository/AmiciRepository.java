@@ -7,7 +7,9 @@ package it.polimi.padel.repository;/*
  */
 
 import it.polimi.padel.model.Amici;
+import it.polimi.padel.model.Utente;
 import org.springframework.data.repository.CrudRepository;
 
 public interface AmiciRepository extends CrudRepository<Amici, Integer> {
+    Amici findByUtente1AndUtente2 (Utente utente1, Utente utente2);
 }

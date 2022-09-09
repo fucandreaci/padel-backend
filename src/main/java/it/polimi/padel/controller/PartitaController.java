@@ -29,6 +29,11 @@ public class PartitaController {
     @Autowired
     private UtenteService utenteService;
 
+    /**
+     * Prenota una partita specificando il campo e l'orario
+     * @param requestPartitaDto
+     * @return
+     */
     @PostMapping("")
     public ResponseEntity<?> prenotaPartita (@Valid @RequestBody RequestPartitaDto requestPartitaDto) {
         Utente utente = utenteService.findFromJWT();
