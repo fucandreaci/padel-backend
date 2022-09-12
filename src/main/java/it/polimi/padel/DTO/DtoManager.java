@@ -1,9 +1,7 @@
 package it.polimi.padel.DTO;
 
-import it.polimi.padel.model.Campo;
-import it.polimi.padel.model.Partita;
-import it.polimi.padel.model.Prenotazione;
-import it.polimi.padel.model.Utente;
+import it.polimi.padel.controller.ResponseAmiciziaDto;
+import it.polimi.padel.model.*;
 
 public class DtoManager {
     public static Utente getUtenteFromRequestSignupDto(RequestSignupDto requestSignupDto) {
@@ -54,5 +52,14 @@ public class DtoManager {
         responseLezionePrivataDto.setIdMaestro(lezionePrivata.getLezionePrivata().getMaestro().getId());
         responseLezionePrivataDto.setCampo(getCampoDtoFromCampo(lezionePrivata.getCampo()));
         return responseLezionePrivataDto;
+    }
+
+    public static ResponseAmiciziaDto getResponseAmiciziaDtoFromAmici(Amici amici) {
+        ResponseAmiciziaDto responseAmiciziaDto = new ResponseAmiciziaDto();
+        responseAmiciziaDto.setNomeAmico(amici.getUtente2().getNome());
+        responseAmiciziaDto.setCognomeAmico(amici.getUtente2().getCognome());
+        responseAmiciziaDto.setIdAmico(amici.getUtente2().getId());
+        responseAmiciziaDto.setAccettata(amici.getAccettata());
+        return responseAmiciziaDto;
     }
 }
