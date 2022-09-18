@@ -1,10 +1,4 @@
-package it.polimi.padel.exception;/*
- * File: MyControllerAdvice
- * Project: BuonAppetito-backend
- * File Created: 31/08/22 - 13:27
- * Author: Andrea Fucci (fucciandrea01@gmail.com)
- * Copyright © 2022-2022 Andrea Fucci
- */
+package it.polimi.padel.exception;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

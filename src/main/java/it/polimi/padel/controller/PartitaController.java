@@ -1,15 +1,8 @@
-package it.polimi.padel.controller;/*
- * File: PartitaController
- * Project: Padel Backend
- * File Created: 06/09/22 - 16:56
- * Author: Andrea Fucci (fucciandrea01@gmail.com)
- * Copyright © 2022-2022 Andrea Fucci
- */
+package it.polimi.padel.controller;
 
 import it.polimi.padel.DTO.RequestPartitaDto;
 import it.polimi.padel.DTO.ResponsePartitaDto;
 import it.polimi.padel.exception.GenericException;
-import it.polimi.padel.model.Prenotazione;
 import it.polimi.padel.model.Utente;
 import it.polimi.padel.service.PartitaService;
 import it.polimi.padel.service.UtenteService;

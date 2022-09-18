@@ -1,10 +1,4 @@
-package it.polimi.padel.exception;/*
- * File: ParseException
- * Project: Padel Backend
- * File Created: 08/09/22 - 15:23
- * Author: Andrea Fucci (fucciandrea01@gmail.com)
- * Copyright © 2022-2022 Andrea Fucci
- */
+package it.polimi.padel.exception;
 
 import org.springframework.http.HttpStatus;
 

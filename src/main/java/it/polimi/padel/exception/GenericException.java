@@ -1,10 +1,4 @@
-package it.polimi.padel.exception;/*
- * File: GenericException
- * Project: Padel Backend
- * File Created: 06/09/22 - 17:48
- * Author: Andrea Fucci (fucciandrea01@gmail.com)
- * Copyright © 2022-2022 Andrea Fucci
- */
+package it.polimi.padel.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

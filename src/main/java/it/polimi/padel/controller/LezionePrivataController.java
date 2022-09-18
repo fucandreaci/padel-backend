@@ -1,10 +1,4 @@
-package it.polimi.padel.controller;/*
- * File: LezionePrivataController
- * Project: Padel Backend
- * File Created: 06/09/22 - 16:55
- * Author: Andrea Fucci (fucciandrea01@gmail.com)
- * Copyright © 2022-2022 Andrea Fucci
- */
+package it.polimi.padel.controller;
 
 import it.polimi.padel.DTO.RequestLezionePrivataDto;
 import it.polimi.padel.exception.GenericException;

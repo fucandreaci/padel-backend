@@ -1,10 +1,4 @@
-package it.polimi.padel.utils;/*
- * File: ConfigurazioniDefault
- * Project: Padel Backend
- * File Created: 08/09/22 - 15:59
- * Author: Andrea Fucci (fucciandrea01@gmail.com)
- * Copyright © 2022-2022 Andrea Fucci
- */
+package it.polimi.padel.utils;
 
 import it.polimi.padel.service.InformazioniService;
 import org.springframework.beans.factory.annotation.Autowired;

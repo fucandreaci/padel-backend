@@ -1,10 +1,4 @@
-package it.polimi.padel.model.parsables;/*
- * File: JsonParsableFactory
- * Project: Padel Backend
- * File Created: 08/09/22 - 15:17
- * Author: Andrea Fucci (fucciandrea01@gmail.com)
- * Copyright © 2022-2022 Andrea Fucci
- */
+package it.polimi.padel.model.parsables;
 
 public class JsonParsableFactory {
     private static JsonParsableFactory jsonParsableFactory;

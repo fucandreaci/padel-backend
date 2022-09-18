@@ -1,10 +1,4 @@
-package it.polimi.padel.service;/*
- * File: AuthenticationService
- * Project: BuonAppetito-backend
- * File Created: 31/08/22 - 12:17
- * Author: Andrea Fucci (fucciandrea01@gmail.com)
- * Copyright © 2022-2022 Andrea Fucci
- */
+package it.polimi.padel.service;
 
 import it.polimi.padel.model.Utente;
 import org.springframework.beans.factory.annotation.Autowired;

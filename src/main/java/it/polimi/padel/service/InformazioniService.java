@@ -1,16 +1,9 @@
-package it.polimi.padel.service;/*
- * File: InformazioniService
- * Project: Padel Backend
- * File Created: 06/09/22 - 16:44
- * Author: Andrea Fucci (fucciandrea01@gmail.com)
- * Copyright © 2022-2022 Andrea Fucci
- */
+package it.polimi.padel.service;
 
 import it.polimi.padel.exception.GenericException;
 import it.polimi.padel.model.Informazioni;
 import it.polimi.padel.model.parsables.JsonParsableFactory;
 import it.polimi.padel.model.parsables.OrarioStruttura;
-import it.polimi.padel.model.parsables.Regola;
 import it.polimi.padel.repository.InformazioniRepository;
 import it.polimi.padel.utils.Costanti;
 import org.json.JSONArray;

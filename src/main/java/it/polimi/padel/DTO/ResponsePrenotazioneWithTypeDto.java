@@ -1,10 +1,4 @@
-package it.polimi.padel.DTO;/*
- * File: ResponsePrenotazioneWithTypeDto
- * Project: Padel Backend
- * File Created: 17/09/22 - 21:49
- * Author: Andrea Fucci (fucciandrea01@gmail.com)
- * Copyright © 2022-2022 Andrea Fucci
- */
+package it.polimi.padel.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
