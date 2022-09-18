@@ -1,4 +1,4 @@
-package it.polimi.padel.controller;/*
+package it.polimi.padel.DTO;/*
  * File: ResponseAmiciziaDto
  * Project: Padel Backend
  * File Created: 12/09/22 - 19:08

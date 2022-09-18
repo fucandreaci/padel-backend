@@ -9,7 +9,7 @@ package it.polimi.padel.service;/*
 import it.polimi.padel.DTO.DtoManager;
 import it.polimi.padel.DTO.RequestAmiciziaDto;
 import it.polimi.padel.DTO.RequestConfermaAmiciziaDto;
-import it.polimi.padel.controller.ResponseAmiciziaDto;
+import it.polimi.padel.DTO.ResponseAmiciziaDto;
 import it.polimi.padel.exception.AmiciziaException;
 import it.polimi.padel.exception.UserException;
 import it.polimi.padel.model.Amici;

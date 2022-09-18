@@ -19,4 +19,10 @@ public interface PrenotazioneRepository extends CrudRepository<Prenotazione, Int
 
     @Query("SELECT p FROM Prenotazione p INNER JOIN LezionePrivata l ON l.id = p.lezionePrivata.id WHERE l.maestro.id = ?1 AND p.da <= ?3 AND p.a >= ?2")
     List<Prenotazione> isMaestroLibero (Integer idMaestro, LocalDateTime da, LocalDateTime a);
+
+    @Query("SELECT p FROM Prenotazione p INNER JOIN LezionePrivata l ON l.id = p.lezionePrivata.id WHERE l.utente.id = ?1")
+    List<Prenotazione> getLezioniPrivateByUtente (Integer idUtente);
+
+    @Query("SELECT p FROM Prenotazione p INNER JOIN Partita l ON l.id = p.partita.id WHERE l.utente1.id = ?1")
+    List<Prenotazione> getPartiteByUtente (Integer idUtente);
 }

@@ -8,12 +8,13 @@ package it.polimi.padel.service;/*
 
 import it.polimi.padel.DTO.DtoManager;
 import it.polimi.padel.DTO.RequestPrenotazioneDto;
+import it.polimi.padel.DTO.ResponsePrenotazioneWithTypeDto;
 import it.polimi.padel.exception.CampoNotFoundException;
-import it.polimi.padel.exception.CampoOccupatoException;
 import it.polimi.padel.exception.GenericException;
 import it.polimi.padel.exception.StrutturaChiusaException;
 import it.polimi.padel.model.Campo;
 import it.polimi.padel.model.Prenotazione;
+import it.polimi.padel.model.Utente;
 import it.polimi.padel.model.parsables.OrarioStruttura;
 import it.polimi.padel.repository.PrenotazioneRepository;
 import it.polimi.padel.utils.Utility;
@@ -25,6 +26,8 @@ import javax.transaction.Transactional;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -96,6 +99,19 @@ public class PrenotazioneService {
         //TODO: manage coupon
 
         return prenotazione;
+    }
+
+    /**
+     * Ritorna la lista delle prenotazioni di un utente
+     * @param utente
+     * @return
+     */
+    public List<ResponsePrenotazioneWithTypeDto> getPrenotazioniByUtente (Utente utente) {
+        List<Prenotazione> partite = prenotazioneRepository.getPartiteByUtente(utente.getId());
+        List<Prenotazione> lezioni = prenotazioneRepository.getLezioniPrivateByUtente(utente.getId());
+
+        List<Prenotazione> prenotazioni = Stream.of(partite, lezioni).flatMap(List::stream).collect(Collectors.toList());
+        return prenotazioni.stream().map(DtoManager::getPreotazioneWithTypeDtoFromPrenotazione).collect(Collectors.toList());
     }
 
     /**

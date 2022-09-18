@@ -1,6 +1,5 @@
 package it.polimi.padel.DTO;
 
-import it.polimi.padel.controller.ResponseAmiciziaDto;
 import it.polimi.padel.model.*;
 
 public class DtoManager {
@@ -61,5 +60,20 @@ public class DtoManager {
         responseAmiciziaDto.setIdAmico(amici.getUtente2().getId());
         responseAmiciziaDto.setAccettata(amici.getAccettata());
         return responseAmiciziaDto;
+    }
+
+    public static ResponsePrenotazioneWithTypeDto getPreotazioneWithTypeDtoFromPrenotazione(Prenotazione prenotazione) {
+        ResponsePrenotazioneWithTypeDto responsePrenotazioneWithTypeDto = new ResponsePrenotazioneWithTypeDto();
+        responsePrenotazioneWithTypeDto.setDa(prenotazione.getDa());
+        responsePrenotazioneWithTypeDto.setA(prenotazione.getA());
+        responsePrenotazioneWithTypeDto.setCampo(getCampoDtoFromCampo(prenotazione.getCampo()));
+        if (prenotazione.getLezionePrivata() != null) {
+            responsePrenotazioneWithTypeDto.setType(PrenotazioneType.LEZIONE_PRIVATA);
+            responsePrenotazioneWithTypeDto.setLezioniPrivate(getResponseLezionePrivataDtoFromLezionePrivata(prenotazione));
+        } else {
+            responsePrenotazioneWithTypeDto.setType(PrenotazioneType.PARTITA);
+            responsePrenotazioneWithTypeDto.setPartite(getResponsePartitaDtoFromPartita(prenotazione));
+        }
+        return responsePrenotazioneWithTypeDto;
     }
 }

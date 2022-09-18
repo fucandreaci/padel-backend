@@ -10,16 +10,15 @@ import it.polimi.padel.DTO.DtoManager;
 import it.polimi.padel.DTO.RequestPartitaDto;
 import it.polimi.padel.DTO.ResponsePartitaDto;
 import it.polimi.padel.exception.GenericException;
-import it.polimi.padel.exception.UserException;
 import it.polimi.padel.model.Partita;
 import it.polimi.padel.model.Prenotazione;
 import it.polimi.padel.model.Utente;
 import it.polimi.padel.repository.PartitaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional(rollbackOn = GenericException.class)
@@ -51,5 +50,14 @@ public class PartitaService {
         prenotazione = prenotazioneService.savePrenotazione(prenotazione);
 
         return DtoManager.getResponsePartitaDtoFromPartita(prenotazione);
+    }
+
+    /**
+     * Ottieni la lista di partite prenotate da un utente
+     * @param utente
+     * @return
+     */
+    public List<Partita> getAllByUtente (Utente utente) {
+        return partitaRepository.findAllByUtente(utente);
     }
 }
