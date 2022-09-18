@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface PartitaRepository extends CrudRepository<Partita, Integer> {
-    List<Partita> findAllByUtente(Utente utente);
+    List<Partita> findAllByUtente1(Utente utente);
 }

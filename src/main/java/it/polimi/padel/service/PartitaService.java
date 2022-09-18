@@ -52,6 +52,6 @@ public class PartitaService {
      * @return
      */
     public List<Partita> getAllByUtente (Utente utente) {
-        return partitaRepository.findAllByUtente(utente);
+        return partitaRepository.findAllByUtente1(utente);
     }
 }
