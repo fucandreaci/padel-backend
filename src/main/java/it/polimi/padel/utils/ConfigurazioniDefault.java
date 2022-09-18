@@ -25,6 +25,13 @@ public class ConfigurazioniDefault {
     }
 
     @Bean
+    public void creaContatti() {
+        if (informazioniService.getByChiave(Costanti.CONTATTI) == null) {
+            informazioniService.creaInformazione(Costanti.CONTATTI, "[{\"nome\":\"telefono\",\"descrizione\":\"+39 3331234567\"},{\"nome\":\"email\",\"descrizione\":\"info@padel.com\"},{\"nome\":\"instagram\",\"descrizione\":\"@padel\"}]");
+        }
+    }
+
+    @Bean
     public void creaInfo() {
         if (informazioniService.getByChiave(Costanti.INFO) == null) {
             informazioniService.creaInformazione(Costanti.INFO, "[{\"nome\":\"News\",\"descrizione\":\"Nuova notizia della settimana\"},{\"nome\":\"Limiti_disdetta\",\"descrizione\":\"Massimo 2 giorni prima\"}]");

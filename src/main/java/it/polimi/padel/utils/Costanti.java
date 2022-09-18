@@ -4,4 +4,5 @@ public interface Costanti {
     String REGOLE = "regole";
     String INFO = "info";
     String ORARI = "orari";
+    String CONTATTI = "contatti";
 }
