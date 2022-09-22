@@ -76,4 +76,19 @@ public class DtoManager {
         }
         return responsePrenotazioneWithTypeDto;
     }
+
+    public static Campo getCampoFromRequestCampoDto (RequestCampoDto requestCampoDto) {
+        Campo campo = new Campo();
+        campo.setNome(requestCampoDto.getNome());
+        campo.setImmagine(campo.getImmagine());
+        return campo;
+    }
+
+    public static ResponseCampoDto getResponseCampoDtoFromCampo (Campo campo) {
+        ResponseCampoDto responseCampoDto = new ResponseCampoDto();
+        responseCampoDto.setId(campo.getId());
+        responseCampoDto.setNome(campo.getNome());
+        responseCampoDto.setUrlImmagine(responseCampoDto.getUrlImmagine());
+        return responseCampoDto;
+    }
 }
