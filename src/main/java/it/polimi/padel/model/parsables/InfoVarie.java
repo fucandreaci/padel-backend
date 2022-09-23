@@ -16,7 +16,6 @@ public class InfoVarie implements JsonParsable{
     private String nome;
     private String descrizione;
 
-
     @Override
     public void parseJson(JSONObject json) throws GenericException {
         try {

@@ -8,6 +8,7 @@ import it.polimi.padel.exception.UserException;
 import it.polimi.padel.service.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -37,5 +38,11 @@ public class AuthController {
         } catch (UserException e) {
             return new ResponseEntity<>(e.getError(), e.getStatus());
         }
+    }
+
+    @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).USER)")
+    @PostMapping("/isValidUser")
+    public ResponseEntity<?> isValidUser () {
+        return ResponseEntity.ok(true);
     }
 }

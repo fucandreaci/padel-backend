@@ -2,6 +2,7 @@ package it.polimi.padel.service;
 
 import it.polimi.padel.exception.GenericException;
 import it.polimi.padel.model.Informazioni;
+import it.polimi.padel.model.parsables.InfoVarie;
 import it.polimi.padel.model.parsables.JsonParsableFactory;
 import it.polimi.padel.model.parsables.OrarioStruttura;
 import it.polimi.padel.repository.InformazioniRepository;
@@ -78,5 +79,51 @@ public class InformazioniService {
         }
 
         return orari;
+    }
+
+    /**
+     * Ritorna le news
+     * @return
+     * @throws GenericException
+     */
+    public List<InfoVarie> getNews () throws GenericException {
+        Informazioni info = informazioniRepository.findByChiave(Costanti.INFO);
+        List<InfoVarie> news = new ArrayList<>();
+        JSONArray jsonArray = new JSONArray(info.getValore());
+
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
+            InfoVarie newsItem = JsonParsableFactory.getFactory().getInfo();
+            newsItem.parseJson(jsonObject);
+
+            if (newsItem.getNome().equalsIgnoreCase("News")) {
+                news.add(newsItem);
+            }
+        }
+
+        return news;
+    }
+
+    /**
+     * Ritorna le informazioni
+     * @return
+     * @throws GenericException
+     */
+    public List<InfoVarie> getInfoVarie () throws GenericException {
+        Informazioni info = informazioniRepository.findByChiave(Costanti.INFO);
+        List<InfoVarie> news = new ArrayList<>();
+        JSONArray jsonArray = new JSONArray(info.getValore());
+
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
+            InfoVarie newsItem = JsonParsableFactory.getFactory().getInfo();
+            newsItem.parseJson(jsonObject);
+
+            if (!newsItem.getNome().equalsIgnoreCase("News")) {
+                news.add(newsItem);
+            }
+        }
+
+        return news;
     }
 }
