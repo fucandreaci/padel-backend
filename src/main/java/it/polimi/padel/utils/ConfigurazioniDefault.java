@@ -34,7 +34,7 @@ public class ConfigurazioniDefault {
     @Bean
     public void creaInfo() {
         if (informazioniService.getByChiave(Costanti.INFO) == null) {
-            informazioniService.creaInformazione(Costanti.INFO, "[{\"nome\":\"News\",\"descrizione\":\"Nuova notizia della settimana\"},{\"nome\":\"Limiti_disdetta\",\"descrizione\":\"Massimo 2 giorni prima\"}]");
+            informazioniService.creaInformazione(Costanti.INFO, "[{\"nome\":\"News\",\"descrizione\":\"Nuova notizia della settimana\"},{\"nome\":\"Limiti disdetta\",\"descrizione\":\"Massimo 2 giorni prima\"}]");
         }
     }
 }

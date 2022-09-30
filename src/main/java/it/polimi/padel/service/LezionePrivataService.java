@@ -3,6 +3,7 @@ package it.polimi.padel.service;
 import it.polimi.padel.DTO.DtoManager;
 import it.polimi.padel.DTO.RequestLezionePrivataDto;
 import it.polimi.padel.DTO.ResponseLezionePrivataDto;
+import it.polimi.padel.DTO.ResponsePrenotazioneWithTypeDto;
 import it.polimi.padel.exception.GenericException;
 import it.polimi.padel.exception.MaestroNotFoundException;
 import it.polimi.padel.model.LezionePrivata;
@@ -35,7 +36,7 @@ public class LezionePrivataService {
      * @return
      * @throws GenericException
      */
-    public ResponseLezionePrivataDto prenotaLezionePrivata (RequestLezionePrivataDto lezionePrivataDto, Utente richiedente) throws GenericException {
+    public ResponsePrenotazioneWithTypeDto prenotaLezionePrivata (RequestLezionePrivataDto lezionePrivataDto, Utente richiedente) throws GenericException {
         Maestro maestro = maestroService.getMaestroById(lezionePrivataDto.getIdMaestro());
         if (maestro == null) {
             throw new MaestroNotFoundException("Il maestro non esiste", HttpStatus.NOT_FOUND);
@@ -54,6 +55,6 @@ public class LezionePrivataService {
         prenotazione.setLezionePrivata(lezionePrivata);
         prenotazione = prenotazioneService.savePrenotazione(prenotazione);
 
-        return DtoManager.getResponseLezionePrivataDtoFromLezionePrivata(prenotazione);
+        return DtoManager.getPreotazioneWithTypeDtoFromPrenotazione(prenotazione);
     }
 }

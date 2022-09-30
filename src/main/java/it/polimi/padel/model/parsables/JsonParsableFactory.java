@@ -43,4 +43,13 @@ public class JsonParsableFactory {
     }
 
 
+    /**
+     * Crea un nuovo oggetto {@link Contatto}
+     * @return
+     */
+    public Contatto getContatti() {
+        return new Contatto();
+    }
+
+
 }

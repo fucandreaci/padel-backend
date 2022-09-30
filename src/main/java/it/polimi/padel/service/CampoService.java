@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -25,8 +27,21 @@ public class CampoService {
         return campoRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Aggiungi un nuovo campo
+     * @param requestCampoDto
+     * @return
+     */
     public ResponseCampoDto aggiungiCampo (RequestCampoDto requestCampoDto) {
         Campo campo = campoRepository.save(DtoManager.getCampoFromRequestCampoDto(requestCampoDto));
         return DtoManager.getResponseCampoDtoFromCampo(campo);
+    }
+
+    /**
+     * Ritorna tutti i campi
+     * @return
+     */
+    public List<ResponseCampoDto> getCampi () {
+        return campoRepository.findAll().stream().map(DtoManager::getResponseCampoDtoFromCampo).collect(Collectors.toList());
     }
 }

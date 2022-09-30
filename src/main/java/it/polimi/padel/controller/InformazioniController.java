@@ -38,4 +38,31 @@ public class InformazioniController {
             return new ResponseEntity<>(e.getError(), e.getStatus());
         }
     }
+
+    @GetMapping("/getContatti")
+    public ResponseEntity<?> getContatti () {
+        try {
+            return ResponseEntity.ok(informazioniService.getContatti());
+        } catch (GenericException e) {
+            return new ResponseEntity<>(e.getError(), e.getStatus());
+        }
+    }
+
+    @GetMapping("/getOrari")
+    public ResponseEntity<?> getOrari () {
+        try {
+            return ResponseEntity.ok(informazioniService.getOrariApertura());
+        } catch (GenericException e) {
+            return new ResponseEntity<>(e.getError(), e.getStatus());
+        }
+    }
+
+    @GetMapping("/getRegole")
+    public ResponseEntity<?> getRegole () {
+        try {
+            return ResponseEntity.ok(informazioniService.getRegole());
+        } catch (GenericException e) {
+            return new ResponseEntity<>(e.getError(), e.getStatus());
+        }
+    }
 }

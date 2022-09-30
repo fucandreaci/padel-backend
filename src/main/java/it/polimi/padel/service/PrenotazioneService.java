@@ -104,7 +104,12 @@ public class PrenotazioneService {
         List<Prenotazione> partite = prenotazioneRepository.getPartiteByUtente(utente.getId());
         List<Prenotazione> lezioni = prenotazioneRepository.getLezioniPrivateByUtente(utente.getId());
 
+
         List<Prenotazione> prenotazioni = Stream.of(partite, lezioni).flatMap(List::stream).collect(Collectors.toList());
+        prenotazioni.forEach(prenotazione -> {
+            prenotazione.setId(prenotazione.getId());
+        });
+
         return prenotazioni.stream().map(DtoManager::getPreotazioneWithTypeDtoFromPrenotazione).collect(Collectors.toList());
     }
 

@@ -22,4 +22,9 @@ public class CampoController {
     public ResponseEntity<?> aggiungiCampo (@Valid @RequestBody RequestCampoDto requestCampoDto) {
         return ResponseEntity.ok(campoService.aggiungiCampo(requestCampoDto));
     }
+
+    @GetMapping("")
+    public ResponseEntity<?> getCampi () {
+        return ResponseEntity.ok(campoService.getCampi());
+    }
 }

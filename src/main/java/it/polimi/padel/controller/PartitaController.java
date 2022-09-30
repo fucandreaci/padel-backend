@@ -32,8 +32,7 @@ public class PartitaController {
         Utente utente = utenteService.findFromJWT();
 
         try {
-            ResponsePartitaDto responsePartitaDto = partitaService.prenotaPartita(requestPartitaDto, utente);
-            return ResponseEntity.ok(responsePartitaDto);
+            return ResponseEntity.ok(partitaService.prenotaPartita(requestPartitaDto, utente));
         } catch (GenericException e) {
             return new ResponseEntity<>(e.getError(), e.getStatus());
         }

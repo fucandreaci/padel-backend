@@ -2,9 +2,7 @@ package it.polimi.padel.service;
 
 import it.polimi.padel.exception.GenericException;
 import it.polimi.padel.model.Informazioni;
-import it.polimi.padel.model.parsables.InfoVarie;
-import it.polimi.padel.model.parsables.JsonParsableFactory;
-import it.polimi.padel.model.parsables.OrarioStruttura;
+import it.polimi.padel.model.parsables.*;
 import it.polimi.padel.repository.InformazioniRepository;
 import it.polimi.padel.utils.Costanti;
 import org.json.JSONArray;
@@ -125,5 +123,45 @@ public class InformazioniService {
         }
 
         return news;
+    }
+
+    /**
+     * Ritorna i contatti
+     * @return
+     * @throws GenericException
+     */
+    public List<Contatto> getContatti () throws GenericException {
+        Informazioni info = informazioniRepository.findByChiave(Costanti.CONTATTI);
+        List<Contatto> contatti = new ArrayList<>();
+        JSONArray jsonArray = new JSONArray(info.getValore());
+
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
+            Contatto contatto = JsonParsableFactory.getFactory().getContatti();
+            contatto.parseJson(jsonObject);
+            contatti.add(contatto);
+        }
+
+        return contatti;
+    }
+
+    /**
+     * Ritorna le regole
+     * @return
+     * @throws GenericException
+     */
+    public List<Regola> getRegole () throws GenericException {
+        Informazioni info = informazioniRepository.findByChiave(Costanti.REGOLE);
+        List<Regola> regole = new ArrayList<>();
+        JSONArray jsonArray = new JSONArray(info.getValore());
+
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
+            Regola regola = JsonParsableFactory.getFactory().getRegola();
+            regola.parseJson(jsonObject);
+            regole.add(regola);
+        }
+
+        return regole;
     }
 }

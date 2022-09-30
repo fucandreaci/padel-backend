@@ -6,10 +6,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class ResponsePartitaDto extends ResponsePrenotazioneDto{
-    private String nomeAvversario;
-    private String cognomeAvversario;
-    private Integer idAvversario;
 
 }

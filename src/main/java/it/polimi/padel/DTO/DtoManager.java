@@ -64,6 +64,7 @@ public class DtoManager {
 
     public static ResponsePrenotazioneWithTypeDto getPreotazioneWithTypeDtoFromPrenotazione(Prenotazione prenotazione) {
         ResponsePrenotazioneWithTypeDto responsePrenotazioneWithTypeDto = new ResponsePrenotazioneWithTypeDto();
+        responsePrenotazioneWithTypeDto.setId(prenotazione.getId());
         responsePrenotazioneWithTypeDto.setDa(prenotazione.getDa());
         responsePrenotazioneWithTypeDto.setA(prenotazione.getA());
         responsePrenotazioneWithTypeDto.setCampo(getCampoDtoFromCampo(prenotazione.getCampo()));
@@ -90,5 +91,13 @@ public class DtoManager {
         responseCampoDto.setNome(campo.getNome());
         responseCampoDto.setUrlImmagine(responseCampoDto.getUrlImmagine());
         return responseCampoDto;
+    }
+
+    public static ResponseMaestroDto getResponseMaestroDtoFromMaestro(Maestro maestro) {
+        ResponseMaestroDto responseMaestroDto = new ResponseMaestroDto();
+        responseMaestroDto.setId(maestro.getId());
+        responseMaestroDto.setNome(maestro.getNome());
+        responseMaestroDto.setCognome(maestro.getCognome());
+        return responseMaestroDto;
     }
 }
