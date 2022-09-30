@@ -33,8 +33,7 @@ public class AmiciController {
         //TODO: Da provare la richiesta
         Utente richiedente = utenteService.findFromJWT();
         try {
-            amiciService.inviaRichiestaAmicizia(requestAmiciziaDto, richiedente);
-            return ResponseEntity.ok(null);
+            return ResponseEntity.ok(amiciService.inviaRichiestaAmicizia(requestAmiciziaDto, richiedente));
         } catch (UserException | AmiciziaException e) {
             return new ResponseEntity<>(e.getMessage(), e.getStatus());
         }
@@ -76,5 +75,15 @@ public class AmiciController {
     public ResponseEntity<?> getAmici() {
         Utente richiedente = utenteService.findFromJWT();
         return ResponseEntity.ok(amiciService.getAmicizieAccettate(richiedente));
+    }
+
+    /**
+     * Ottiene la lista di amici
+     * @return
+     */
+    @GetMapping("/utentiDisponibili")
+    public ResponseEntity<?> getNotAmici() {
+        Utente richiedente = utenteService.findFromJWT();
+        return ResponseEntity.ok(utenteService.getUtentiNotAmici(richiedente));
     }
 }

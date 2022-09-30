@@ -43,7 +43,7 @@ public class AmiciService {
      * @throws UserException
      * @throws AmiciziaException
      */
-    public void inviaRichiestaAmicizia (RequestAmiciziaDto requestAmiciziaDto, Utente richiedente) throws UserException, AmiciziaException {
+    public ResponseAmiciziaDto inviaRichiestaAmicizia (RequestAmiciziaDto requestAmiciziaDto, Utente richiedente) throws UserException, AmiciziaException {
         Utente amicoDaAgg = utenteService.findById(requestAmiciziaDto.getIdUtente());
         if (amicoDaAgg == null) {
             throw new UserException("L'utente non esiste", HttpStatus.NOT_FOUND);
@@ -62,7 +62,8 @@ public class AmiciService {
         amici.setUtente2(amicoDaAgg);
         amici.setUtente(richiedente);
 
-        amiciRepository.save(amici);
+        amici = amiciRepository.save(amici);
+        return DtoManager.getResponseAmiciziaDtoFromAmici(amici);
     }
 
     /**
@@ -107,7 +108,7 @@ public class AmiciService {
      * @return
      */
     public List<ResponseAmiciziaDto> getAmicizieAccettate (Utente richiedente) {
-        List<Amici> amicizie = amiciRepository.findAllByUtente1AndAccettataIsTrue(richiedente);
+        List<Amici> amicizie = amiciRepository.findAllByUtente1AndAccettataIsNotFalse(richiedente);
         List<ResponseAmiciziaDto> dtos = amicizie.stream().map(amicizia -> DtoManager.getResponseAmiciziaDtoFromAmici(amicizia)).collect(Collectors.toList());
         return dtos;
     }

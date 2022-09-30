@@ -19,6 +19,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -109,5 +111,10 @@ public class UtenteService {
 
         utente = utenteRepository.save(utente);
         return DtoManager.getResponseSignupDtoFromUtente(utente);
+    }
+
+    public List<ResponseAmiciziaDto> getUtentiNotAmici(Utente user) {
+        List<Utente> utentiNonAmici = utenteRepository.findUtentiNonAmici(user);
+        return utentiNonAmici.stream().map(DtoManager::getResponseAmiciziaDtoFromUtente).collect(Collectors.toList());
     }
 }

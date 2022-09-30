@@ -62,6 +62,14 @@ public class DtoManager {
         return responseAmiciziaDto;
     }
 
+    public static ResponseAmiciziaDto getResponseAmiciziaDtoFromUtente(Utente utente) {
+        ResponseAmiciziaDto responseAmiciziaDto = new ResponseAmiciziaDto();
+        responseAmiciziaDto.setNomeAmico(utente.getNome());
+        responseAmiciziaDto.setCognomeAmico(utente.getCognome());
+        responseAmiciziaDto.setIdAmico(utente.getId());
+        return responseAmiciziaDto;
+    }
+
     public static ResponsePrenotazioneWithTypeDto getPreotazioneWithTypeDtoFromPrenotazione(Prenotazione prenotazione) {
         ResponsePrenotazioneWithTypeDto responsePrenotazioneWithTypeDto = new ResponsePrenotazioneWithTypeDto();
         responsePrenotazioneWithTypeDto.setId(prenotazione.getId());
