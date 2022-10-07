@@ -1,9 +1,6 @@
 package it.polimi.padel.service;
 
-import it.polimi.padel.DTO.DtoManager;
-import it.polimi.padel.DTO.RequestAmiciziaDto;
-import it.polimi.padel.DTO.RequestConfermaAmiciziaDto;
-import it.polimi.padel.DTO.ResponseAmiciziaDto;
+import it.polimi.padel.DTO.*;
 import it.polimi.padel.exception.AmiciziaException;
 import it.polimi.padel.exception.UserException;
 import it.polimi.padel.model.Amici;
@@ -16,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -63,7 +61,7 @@ public class AmiciService {
         amici.setUtente(richiedente);
 
         amici = amiciRepository.save(amici);
-        return DtoManager.getResponseAmiciziaDtoFromAmici(amici);
+        return DtoManager.getResponseAmiciziaDtoFromAmici(amici, richiedente);
     }
 
     /**
@@ -72,23 +70,25 @@ public class AmiciService {
      * @param richiedente
      * @throws AmiciziaException
      */
-    public void accettaRichiestaAmicizia (RequestConfermaAmiciziaDto confermaAmiciziaDto, Utente richiedente) throws AmiciziaException {
+    public ResponseAmiciziaDto accettaRichiestaAmicizia (RequestConfermaAmiciziaDto confermaAmiciziaDto, Utente richiedente) throws AmiciziaException {
         Utente amico = utenteService.findById(confermaAmiciziaDto.getIdAmico());
         if (amico == null) {
             throw new AmiciziaException("L'utente non esiste", HttpStatus.NOT_FOUND);
         }
 
-        if (!existAmicizia(richiedente, amico)) {
+        if (!existAmicizia(amico, richiedente)) {
             throw new AmiciziaException("L'amicizia non esiste", HttpStatus.NOT_FOUND);
         }
 
-        Amici amicizia = amiciRepository.findByUtente1AndUtente2(richiedente, amico);
+        Amici amicizia = amiciRepository.findByUtente1AndUtente2(amico, richiedente);
         if (amicizia.getAccettata() != null) {
             throw new AmiciziaException("L'amicizia è già stata accettata/rifiutata", HttpStatus.BAD_REQUEST);
         }
 
         amicizia.setAccettata(confermaAmiciziaDto.getConferma());
-        amiciRepository.save(amicizia);
+        amicizia = amiciRepository.save(amicizia);
+
+        return DtoManager.getResponseAmiciziaDtoFromAmici(amicizia, richiedente);
     }
 
     /**
@@ -97,8 +97,8 @@ public class AmiciService {
      * @return
      */
     public List<ResponseAmiciziaDto> getAmicizieInSospeso (Utente richiedente) {
-        List<Amici> amicizie = amiciRepository.findAllByUtente1AndAccettataIsNull(richiedente);
-        List<ResponseAmiciziaDto> dtos = amicizie.stream().map(amicizia -> DtoManager.getResponseAmiciziaDtoFromAmici(amicizia)).collect(Collectors.toList());
+        List<Amici> amicizie = amiciRepository.findAllByUtente2AndAccettataIsNull(richiedente);
+        List<ResponseAmiciziaDto> dtos = amicizie.stream().map(a -> DtoManager.getResponseAmiciziaDtoFromAmici(a, richiedente)).collect(Collectors.toList());
         return dtos;
     }
 
@@ -108,8 +108,12 @@ public class AmiciService {
      * @return
      */
     public List<ResponseAmiciziaDto> getAmicizieAccettate (Utente richiedente) {
-        List<Amici> amicizie = amiciRepository.findAllByUtente1AndAccettataIsNotFalse(richiedente);
-        List<ResponseAmiciziaDto> dtos = amicizie.stream().map(amicizia -> DtoManager.getResponseAmiciziaDtoFromAmici(amicizia)).collect(Collectors.toList());
-        return dtos;
+        // FIXME: il dto di output non è corretto. Far visualizzare solo l'altro utente e non l'utente stesso
+        List<Amici> amicizie = amiciRepository.findAllByUtente1AndAccettataIsTrue(richiedente);
+        List<Amici> amicizie2 = amiciRepository.findAllByUtente2AndAccettataIsNotFalse(richiedente);
+
+        List<Amici> allAmicizie = Stream.of(amicizie, amicizie2).flatMap(List::stream).collect(Collectors.toList());
+
+        return allAmicizie.stream().map(a -> DtoManager.getResponseAmiciziaDtoFromAmici(a, richiedente)).collect(Collectors.toList());
     }
 }

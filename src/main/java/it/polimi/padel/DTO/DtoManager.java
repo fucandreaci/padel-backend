@@ -53,11 +53,13 @@ public class DtoManager {
         return responseLezionePrivataDto;
     }
 
-    public static ResponseAmiciziaDto getResponseAmiciziaDtoFromAmici(Amici amici) {
+    public static ResponseAmiciziaDto getResponseAmiciziaDtoFromAmici(Amici amici, Utente richiedente) {
         ResponseAmiciziaDto responseAmiciziaDto = new ResponseAmiciziaDto();
-        responseAmiciziaDto.setNomeAmico(amici.getUtente2().getNome());
-        responseAmiciziaDto.setCognomeAmico(amici.getUtente2().getCognome());
-        responseAmiciziaDto.setIdAmico(amici.getUtente2().getId());
+        Utente u = amici.getUtente1().getId() == richiedente.getId() ? amici.getUtente2() : amici.getUtente1();
+
+        responseAmiciziaDto.setNomeAmico(u.getNome());
+        responseAmiciziaDto.setCognomeAmico(u.getCognome());
+        responseAmiciziaDto.setIdAmico(u.getId());
         responseAmiciziaDto.setAccettata(amici.getAccettata());
         return responseAmiciziaDto;
     }

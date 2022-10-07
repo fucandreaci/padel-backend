@@ -49,8 +49,7 @@ public class AmiciController {
         // TODO: provare la richiesta
         Utente richiedente = utenteService.findFromJWT();
         try {
-            amiciService.accettaRichiestaAmicizia(confermaAmiciziaDto, richiedente);
-            return ResponseEntity.ok(null);
+            return ResponseEntity.ok(amiciService.accettaRichiestaAmicizia(confermaAmiciziaDto, richiedente));
         } catch (AmiciziaException e) {
             return new ResponseEntity<>(e.getMessage(), e.getStatus());
         }
