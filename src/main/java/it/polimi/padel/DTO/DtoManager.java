@@ -110,4 +110,12 @@ public class DtoManager {
         responseMaestroDto.setCognome(maestro.getCognome());
         return responseMaestroDto;
     }
+
+    public static UtenteDto getUtenteDtoFromUtente(Utente utente) {
+        UtenteDto utenteDto = new UtenteDto();
+        utenteDto.setId(utente.getId());
+        utenteDto.setNome(utente.getNome());
+        utenteDto.setCognome(utente.getCognome());
+        return utenteDto;
+    }
 }
