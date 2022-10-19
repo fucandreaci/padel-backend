@@ -1,4 +1,5 @@
 package it.polimi.padel.DTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -6,14 +7,15 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InviaMessaggioDto {
-    @NotNull
-    private Integer idDestinatario;
-
-    @NotNull
+@Data
+public class RequestInviaSegnalazioneDto {
     @NotBlank
-    private String messaggio;
+    @NotNull
+    private String idChat;
+
+    @NotBlank
+    @NotNull
+    private String idMessaggio;
 }

@@ -1,10 +1,4 @@
-package it.polimi.padel.controller;/*
- * File: MessaggioController
- * Project: Padel Backend
- * File Created: 14/10/22 - 11:02
- * Author: Andrea Fucci (fucciandrea01@gmail.com)
- * Copyright © 2022-2022 Andrea Fucci
- */
+package it.polimi.padel.controller;
 
 import it.polimi.padel.DTO.InviaMessaggioDto;
 import it.polimi.padel.exception.UserException;
