@@ -17,6 +17,7 @@ public class Torneo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer maxPartecipanti;
+    private Boolean prenotazioneAperta;
 
     @ManyToMany
     @JoinTable(
