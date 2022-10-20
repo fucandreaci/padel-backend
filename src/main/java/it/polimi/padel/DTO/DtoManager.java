@@ -2,6 +2,8 @@ package it.polimi.padel.DTO;
 
 import it.polimi.padel.model.*;
 
+import java.util.List;
+
 public class DtoManager {
     public static Utente getUtenteFromRequestSignupDto(RequestSignupDto requestSignupDto) {
         Utente utente = new Utente();
@@ -117,5 +119,17 @@ public class DtoManager {
         utenteDto.setNome(utente.getNome());
         utenteDto.setCognome(utente.getCognome());
         return utenteDto;
+    }
+
+    public static ResponseTorneoDto getResponseTorneoDtoFromTorneo(Torneo torneo, Utente richiedente) {
+        ResponseTorneoDto responseTorneoDto = new ResponseTorneoDto();
+        responseTorneoDto.setId(torneo.getId());
+        responseTorneoDto.setNumPartecipanti(torneo.getUtenti().size());
+        responseTorneoDto.setMaxPartecipanti(torneo.getMaxPartecipanti());
+        responseTorneoDto.setPrenotazioneAperta(torneo.getPrenotazioneAperta());
+        responseTorneoDto.setUtentePrenotato(torneo.getUtenti().stream().anyMatch(u -> u.getId() == richiedente.getId()));
+        responseTorneoDto.setDescrizione(torneo.getDescrizione());
+
+        return responseTorneoDto;
     }
 }

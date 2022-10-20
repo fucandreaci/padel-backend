@@ -18,6 +18,7 @@ public class Torneo {
     private Integer id;
     private Integer maxPartecipanti;
     private Boolean prenotazioneAperta;
+    private String descrizione;
 
     @ManyToMany
     @JoinTable(
