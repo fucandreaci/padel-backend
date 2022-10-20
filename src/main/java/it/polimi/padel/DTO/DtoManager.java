@@ -80,6 +80,7 @@ public class DtoManager {
         responsePrenotazioneWithTypeDto.setDa(prenotazione.getDa());
         responsePrenotazioneWithTypeDto.setA(prenotazione.getA());
         responsePrenotazioneWithTypeDto.setCampo(getCampoDtoFromCampo(prenotazione.getCampo()));
+        responsePrenotazioneWithTypeDto.setCoupon(prenotazione.getCoupon());
         if (prenotazione.getLezionePrivata() != null) {
             responsePrenotazioneWithTypeDto.setType(PrenotazioneType.LEZIONE_PRIVATA);
             responsePrenotazioneWithTypeDto.setLezioniPrivate(getResponseLezionePrivataDtoFromLezionePrivata(prenotazione));
