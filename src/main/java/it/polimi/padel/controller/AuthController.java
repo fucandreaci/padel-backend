@@ -45,4 +45,10 @@ public class AuthController {
     public ResponseEntity<?> isValidUser () {
         return ResponseEntity.ok(true);
     }
+
+    @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).ADMIN)")
+    @PostMapping("/isValidAdmin")
+    public ResponseEntity<?> isValidAdmin () {
+        return ResponseEntity.ok(true);
+    }
 }

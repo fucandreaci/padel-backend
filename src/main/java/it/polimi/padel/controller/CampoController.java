@@ -1,6 +1,7 @@
 package it.polimi.padel.controller;
 
 import it.polimi.padel.DTO.RequestCampoDto;
+import it.polimi.padel.exception.CampoNotFoundException;
 import it.polimi.padel.service.CampoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,17 @@ public class CampoController {
     @PostMapping("")
     public ResponseEntity<?> aggiungiCampo (@Valid @RequestBody RequestCampoDto requestCampoDto) {
         return ResponseEntity.ok(campoService.aggiungiCampo(requestCampoDto));
+    }
+
+    @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).ADMIN)")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> rimuoviCampo (@PathVariable Integer id) {
+        try {
+            campoService.deleteCampo(id);
+            return ResponseEntity.ok().build();
+        } catch (CampoNotFoundException e) {
+            return new ResponseEntity<>(e.getError(), e.getStatus());
+        }
     }
 
     @GetMapping("")
