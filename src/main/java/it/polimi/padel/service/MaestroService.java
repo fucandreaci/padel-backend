@@ -22,10 +22,14 @@ public class MaestroService {
      * @param id
      * @return
      */
-    public Maestro getMaestroById (int id) {
+    public Maestro getMaestroById (Integer id) {
         return maestroRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Ottieni la lista dei maestri disponibili
+     * @return
+     */
     public List<ResponseMaestroDto> getMaestri () {
         return maestroRepository.findAll().stream().map(DtoManager::getResponseMaestroDtoFromMaestro).collect(Collectors.toList());
     }

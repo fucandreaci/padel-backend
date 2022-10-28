@@ -25,9 +25,6 @@ public class PartitaService {
     private PartitaRepository partitaRepository;
 
     @Autowired
-    private UtenteService utenteService;
-
-    @Autowired
     private CouponService couponService;
 
     @Autowired

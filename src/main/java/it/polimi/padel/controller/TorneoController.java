@@ -23,6 +23,11 @@ public class TorneoController {
     @Autowired
     private UtenteService utenteService;
 
+    /**
+     * Crea un nuovo torneo
+     * @param dto
+     * @return
+     */
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).ADMIN)")
     public ResponseEntity<?> creaTorneo (@RequestBody @Valid RequestCreaTorneoDto dto) {
@@ -30,12 +35,21 @@ public class TorneoController {
         return ResponseEntity.ok(null);
     }
 
+    /**
+     * Ottieni la lista dei tornei
+     * @return
+     */
     @GetMapping("")
     public ResponseEntity<?> getTornei () {
         Utente richiedente = utenteService.findFromJWT();
         return ResponseEntity.ok(torneoService.getTornei(richiedente));
     }
 
+    /**
+     * Iscrivi un utente ad un torneo
+     * @param dto
+     * @return
+     */
     @PostMapping("/iscriviti")
     public ResponseEntity<?> iscriviUtente (@RequestBody @Valid RequestIscrizioneTorneoDto dto) {
         Utente richiedente = utenteService.findFromJWT();
@@ -47,6 +61,11 @@ public class TorneoController {
         }
     }
 
+    /**
+     * Disiscrivi un utente da un torneo
+     * @param dto
+     * @return
+     */
     @PostMapping("/rimuoviIscrizione")
     public ResponseEntity<?> rimuoviIscrizione (@RequestBody @Valid RequestIscrizioneTorneoDto dto) {
         Utente richiedente = utenteService.findFromJWT();

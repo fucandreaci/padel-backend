@@ -22,8 +22,13 @@ public class MessaggioController {
     @Autowired
     private UtenteService utenteService;
 
+    /**
+     * Invia un nuovo messaggio ad un utente
+     * @param messaggioDto
+     * @return
+     */
     @PostMapping("/invia")
-    public ResponseEntity<?> inviaRichiestaAmicizia (@Valid @RequestBody InviaMessaggioDto messaggioDto) {
+    public ResponseEntity<?> inviaMessaggio (@Valid @RequestBody InviaMessaggioDto messaggioDto) {
         Utente richiedente = utenteService.findFromJWT();
         Utente destinatario;
 

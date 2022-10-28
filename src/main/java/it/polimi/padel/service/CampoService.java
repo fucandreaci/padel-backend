@@ -39,6 +39,11 @@ public class CampoService {
         return DtoManager.getResponseCampoDtoFromCampo(campo);
     }
 
+    /**
+     * Elimina un campo
+     * @param id
+     * @throws CampoNotFoundException
+     */
     public void deleteCampo (Integer id) throws CampoNotFoundException {
         Campo campo = getCampoById(id);
         if (campo == null) {

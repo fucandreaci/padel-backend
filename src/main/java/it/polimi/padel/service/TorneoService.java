@@ -34,6 +34,12 @@ public class TorneoService {
         return torneoRepository.save(torneo);
     }
 
+    /**
+     * Disabilita la possiblità di prenotarsi al torneo
+     * @param id
+     * @return
+     * @throws TorneoException
+     */
     public Torneo chiudiPrenotazione(Integer id) throws TorneoException {
         Torneo torneo = findById(id);
 
@@ -45,6 +51,13 @@ public class TorneoService {
         return torneoRepository.save(torneo);
     }
 
+    /**
+     * Iscrivi un utente ad un torneo
+     * @param idTorneo
+     * @param utente
+     * @return
+     * @throws TorneoException
+     */
     public Torneo iscriviUtente (Integer idTorneo, Utente utente) throws TorneoException {
         Torneo torneo = findById(idTorneo);
         if (torneo == null) {
@@ -67,6 +80,13 @@ public class TorneoService {
         return torneoRepository.save(torneo);
     }
 
+    /**
+     * Rimuovi la prenotazione di un utente ad un torneo
+     * @param idTorneo
+     * @param utente
+     * @return
+     * @throws TorneoException
+     */
     public Torneo rimuoviUtente (Integer idTorneo, Utente utente) throws TorneoException {
         Torneo torneo = findById(idTorneo);
         if (torneo == null) {
@@ -85,6 +105,11 @@ public class TorneoService {
         return torneoRepository.save(torneo);
     }
 
+    /**
+     * Restituisce tutti i tornei
+     * @param richiedente
+     * @return
+     */
     public List<ResponseTorneoDto> getTornei (Utente richiedente) {
         List<Torneo> tornei = torneoRepository.findAll();
         return tornei.stream().map(t -> DtoManager.getResponseTorneoDtoFromTorneo(t, richiedente)).collect(Collectors.toList());

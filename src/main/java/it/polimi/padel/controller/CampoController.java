@@ -18,12 +18,22 @@ public class CampoController {
     @Autowired
     private CampoService campoService;
 
+    /**
+     * Aggiungi un campo
+     * @param requestCampoDto
+     * @return
+     */
     @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).ADMIN)")
     @PostMapping("")
     public ResponseEntity<?> aggiungiCampo (@Valid @RequestBody RequestCampoDto requestCampoDto) {
         return ResponseEntity.ok(campoService.aggiungiCampo(requestCampoDto));
     }
 
+    /**
+     * Elimina un campo
+     * @param id
+     * @return
+     */
     @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).ADMIN)")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> rimuoviCampo (@PathVariable Integer id) {
@@ -35,6 +45,10 @@ public class CampoController {
         }
     }
 
+    /**
+     * Ottieni tutti i campi
+     * @return
+     */
     @GetMapping("")
     public ResponseEntity<?> getCampi () {
         return ResponseEntity.ok(campoService.getCampi());

@@ -4,6 +4,9 @@ import it.polimi.padel.model.*;
 
 import java.util.List;
 
+/**
+ * Classe che gestisce la conversione tra oggetti di tipo model e DTO
+ */
 public class DtoManager {
     public static Utente getUtenteFromRequestSignupDto(RequestSignupDto requestSignupDto) {
         Utente utente = new Utente();

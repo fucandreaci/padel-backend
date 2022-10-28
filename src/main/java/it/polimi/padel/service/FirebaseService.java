@@ -18,6 +18,9 @@ import java.time.LocalDateTime;
 
 @Service
 public class FirebaseService {
+    /**
+     * Inizializza il servizio di Firebase
+     */
     @PostConstruct
     public void initialize() {
         try {
@@ -33,6 +36,13 @@ public class FirebaseService {
         }
     }
 
+    /**
+     * Aggiunge un messaggio al database di Firebase
+     * @param sender
+     * @param receiver
+     * @param message
+     * @throws UserException
+     */
     public void inviaMessaggio (Utente sender, Utente receiver, String message) throws UserException {
         if (sender.getId() == receiver.getId()) {
             throw new UserException("Non puoi inviare un messaggio a te stesso", HttpStatus.BAD_REQUEST);

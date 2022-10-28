@@ -13,11 +13,23 @@ public class SegnalazioneService {
     @Autowired
     private SegnalazioneRepository segnalazioneRepository;
 
+    /**
+     * Controlla se esiste già una segnalazione per uno specifico messaggio
+     * @param chatId
+     * @param messaggioId
+     * @return
+     */
     public boolean existSegnalazione (String chatId, String messaggioId) {
         Segnalazione segnalazione = segnalazioneRepository.getSegnalazioneByChatIdAndMessaggioId(chatId, messaggioId);
         return segnalazione != null;
     }
 
+    /**
+     * Invia la segnalazione di un messaggio
+     * @param segnalazioneDto
+     * @return
+     * @throws SegnalazioneException
+     */
     public Segnalazione segnalaMessaggio(RequestInviaSegnalazioneDto segnalazioneDto) throws SegnalazioneException {
         String chatId = segnalazioneDto.getIdChat();
         String messaggioId = segnalazioneDto.getIdMessaggio();

@@ -20,9 +20,12 @@ public class PrenotazioneController {
     @Autowired
     private UtenteService utenteService;
 
+    /**
+     * Ottieni le prenotazioni dell'utente
+     * @return
+     */
     @GetMapping("")
     public ResponseEntity<?> getPrenotazioni() {
-        //TODO: Da provare la richiesta
         Utente richiedente = utenteService.findFromJWT();
         return ResponseEntity.ok(prenotazioneService.getPrenotazioniByUtente(richiedente));
     }

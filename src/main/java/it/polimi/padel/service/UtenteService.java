@@ -113,6 +113,11 @@ public class UtenteService {
         return DtoManager.getResponseSignupDtoFromUtente(utente);
     }
 
+    /**
+     * Restituisce la lista degli utenti che non sono amici dell'utente loggato
+     * @param user
+     * @return
+     */
     public List<ResponseAmiciziaDto> getUtentiNotAmici(Utente user) {
         List<Utente> utentiNonAmici = utenteRepository.findUtentiNonAmici(user);
         return utentiNonAmici.stream().map(DtoManager::getResponseAmiciziaDtoFromUtente).collect(Collectors.toList());

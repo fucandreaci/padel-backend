@@ -16,6 +16,11 @@ public class SegnalazioneController {
     @Autowired
     private SegnalazioneService segnalazioneService;
 
+    /**
+     * Endpoint per inviare una segnalazione
+     * @param segnalazioneDto
+     * @return
+     */
     @PostMapping("")
     public ResponseEntity<?> segnalaUtente (@RequestBody @Valid RequestInviaSegnalazioneDto segnalazioneDto) {
         try {

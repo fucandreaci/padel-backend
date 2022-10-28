@@ -20,6 +20,11 @@ public class AuthController {
     @Autowired
     private UtenteService utenteService;
 
+    /**
+     * Effettua il login
+     * @param requestLoginDTO
+     * @return
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login (@Valid @RequestBody RequestLoginDto requestLoginDTO) {
         try {
@@ -30,6 +35,11 @@ public class AuthController {
         }
     }
 
+    /**
+     * Effettua la registrazione
+     * @param requestSignupDto
+     * @return
+     */
     @PostMapping("/signup")
     public ResponseEntity<?> signup (@Valid @RequestBody RequestSignupDto requestSignupDto) {
         try {
@@ -40,12 +50,20 @@ public class AuthController {
         }
     }
 
+    /**
+     * Controlla se l'utente che fa la richiesta ha il ruolo USER
+     * @return
+     */
     @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).USER)")
     @PostMapping("/isValidUser")
     public ResponseEntity<?> isValidUser () {
         return ResponseEntity.ok(true);
     }
 
+    /**
+     * Controlla se l'utente che fa la richiesta ha il ruolo ADMIN
+     * @return
+     */
     @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).ADMIN)")
     @PostMapping("/isValidAdmin")
     public ResponseEntity<?> isValidAdmin () {

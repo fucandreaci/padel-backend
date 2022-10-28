@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+/**
+ * Classe che contiene le configurazioni di default, inserisce nel db i parametri di configurazione se non presenti
+ */
 @Component
 public class ConfigurazioniDefault {
     @Autowired

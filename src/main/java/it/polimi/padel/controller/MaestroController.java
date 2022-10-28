@@ -15,6 +15,10 @@ public class MaestroController {
     @Autowired
     private MaestroService maestroService;
 
+    /**
+     * Ottieni i maestri
+     * @return
+     */
     @GetMapping("")
     public ResponseEntity<?> getMaestri () {
         return ResponseEntity.ok(maestroService.getMaestri());

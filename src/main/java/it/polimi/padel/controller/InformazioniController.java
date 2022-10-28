@@ -16,11 +16,19 @@ public class InformazioniController {
     @Autowired
     private InformazioniService informazioniService;
 
+    /**
+     * Ottieni tutte le informazioni
+     * @return
+     */
     @GetMapping("")
     public ResponseEntity<?> getInformazioni () {
         return ResponseEntity.ok(informazioniService.getInformazioni());
     }
 
+    /**
+     * Ottieni le news
+     * @return
+     */
     @GetMapping("/getNews")
     public ResponseEntity<?> getNews () {
         try {
@@ -30,6 +38,10 @@ public class InformazioniController {
         }
     }
 
+    /**
+     * Ottieni informazioni varie sulla struttura
+     * @return
+     */
     @GetMapping("/getInfoVarie")
     public ResponseEntity<?> getInfoVarie () {
         try {
@@ -39,6 +51,10 @@ public class InformazioniController {
         }
     }
 
+    /**
+     * Ottieni la lista di contatti
+     * @return
+     */
     @GetMapping("/getContatti")
     public ResponseEntity<?> getContatti () {
         try {
@@ -48,6 +64,10 @@ public class InformazioniController {
         }
     }
 
+    /**
+     * Ottieni gli orari di apertura della struttura
+     * @return
+     */
     @GetMapping("/getOrari")
     public ResponseEntity<?> getOrari () {
         try {
@@ -57,6 +77,10 @@ public class InformazioniController {
         }
     }
 
+    /**
+     * Ottieni la lista delle regole
+     * @return
+     */
     @GetMapping("/getRegole")
     public ResponseEntity<?> getRegole () {
         try {
