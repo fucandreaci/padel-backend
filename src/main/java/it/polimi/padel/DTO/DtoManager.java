@@ -94,7 +94,7 @@ public class DtoManager {
     public static Campo getCampoFromRequestCampoDto (RequestCampoDto requestCampoDto) {
         Campo campo = new Campo();
         campo.setNome(requestCampoDto.getNome());
-        campo.setImmagine(campo.getImmagine());
+        campo.setImmagine(requestCampoDto.getUrlImmagine());
         return campo;
     }
 
@@ -102,7 +102,7 @@ public class DtoManager {
         ResponseCampoDto responseCampoDto = new ResponseCampoDto();
         responseCampoDto.setId(campo.getId());
         responseCampoDto.setNome(campo.getNome());
-        responseCampoDto.setUrlImmagine(responseCampoDto.getUrlImmagine());
+        responseCampoDto.setUrlImmagine(campo.getImmagine());
         return responseCampoDto;
     }
 
