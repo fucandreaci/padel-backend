@@ -26,13 +26,13 @@ public class TorneoService {
         return torneoRepository.findById(id).orElse(null);
     }
 
-    public Torneo creaTorneo (RequestCreaTorneoDto dto) {
+    public ResponseTorneoDto creaTorneo (RequestCreaTorneoDto dto) {
         Torneo torneo = new Torneo();
         torneo.setMaxPartecipanti(dto.getMaxPartecipanti());
         torneo.setDescrizione(dto.getDescrizione());
         torneo.setPrenotazioneAperta(true);
 
-        return torneoRepository.save(torneo);
+        return DtoManager.getResponseTorneoDtoFromTorneo(torneoRepository.save(torneo), null);
     }
 
     /**

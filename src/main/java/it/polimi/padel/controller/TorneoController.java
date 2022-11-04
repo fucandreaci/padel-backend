@@ -32,8 +32,7 @@ public class TorneoController {
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).ADMIN)")
     public ResponseEntity<?> creaTorneo (@RequestBody @Valid RequestCreaTorneoDto dto) {
-        torneoService.creaTorneo(dto);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(torneoService.creaTorneo(dto));
     }
 
     /**
