@@ -2,6 +2,7 @@ package it.polimi.padel.service;
 
 import it.polimi.padel.DTO.DtoManager;
 import it.polimi.padel.DTO.RequestCreaTorneoDto;
+import it.polimi.padel.DTO.RequestModificaTorneoDto;
 import it.polimi.padel.DTO.ResponseTorneoDto;
 import it.polimi.padel.exception.TorneoException;
 import it.polimi.padel.model.Torneo;
@@ -113,5 +114,29 @@ public class TorneoService {
     public List<ResponseTorneoDto> getTornei (Utente richiedente) {
         List<Torneo> tornei = torneoRepository.findAll();
         return tornei.stream().map(t -> DtoManager.getResponseTorneoDtoFromTorneo(t, richiedente)).collect(Collectors.toList());
+    }
+
+    /**
+     * Modifica un torneo esistente
+     * @param id
+     * @param dto
+     * @return
+     * @throws TorneoException
+     */
+    public ResponseTorneoDto modificaTorneo (Integer id, RequestModificaTorneoDto dto) throws TorneoException {
+        Torneo torneo = findById(id);
+        if (torneo == null) {
+            throw new TorneoException("Torneo non valido", HttpStatus.NOT_FOUND);
+        }
+
+        torneo.setDescrizione(dto.getDescrizione());
+        torneo.setMaxPartecipanti(dto.getMaxPartecipanti());
+        torneo.setPrenotazioneAperta(dto.getPrenotazioneAperta());
+
+        if (torneo.getMaxPartecipanti() < torneo.getUtenti().size()) {
+            throw new TorneoException("Il numero di partecipanti è maggiore del numero massimo", HttpStatus.BAD_REQUEST);
+        }
+
+        return DtoManager.getResponseTorneoDtoFromTorneo(torneoRepository.save(torneo), null);
     }
 }

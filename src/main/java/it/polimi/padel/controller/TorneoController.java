@@ -2,6 +2,7 @@ package it.polimi.padel.controller;
 
 import it.polimi.padel.DTO.RequestCreaTorneoDto;
 import it.polimi.padel.DTO.RequestIscrizioneTorneoDto;
+import it.polimi.padel.DTO.RequestModificaTorneoDto;
 import it.polimi.padel.exception.TorneoException;
 import it.polimi.padel.model.Utente;
 import it.polimi.padel.service.TorneoService;
@@ -72,6 +73,22 @@ public class TorneoController {
         try {
             torneoService.rimuoviUtente(dto.getIdTorneo(), richiedente);
             return ResponseEntity.ok(null);
+        } catch (TorneoException e) {
+            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+        }
+    }
+
+    /**
+     * Modifica un torneo
+     * @param id
+     * @param dto
+     * @return
+     */
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).ADMIN)")
+    public ResponseEntity<?> modificaTorneo (@PathVariable Integer id, @RequestBody @Valid RequestModificaTorneoDto dto) {
+        try {
+            return ResponseEntity.ok(torneoService.modificaTorneo(id, dto));
         } catch (TorneoException e) {
             return new ResponseEntity<>(e.getMessage(), e.getStatus());
         }
