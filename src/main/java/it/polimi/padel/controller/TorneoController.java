@@ -93,4 +93,15 @@ public class TorneoController {
             return new ResponseEntity<>(e.getMessage(), e.getStatus());
         }
     }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).ADMIN)")
+    public ResponseEntity<?> eliminaTorneo (@PathVariable Integer id) {
+        try {
+            torneoService.deleteTorneo(id);
+            return ResponseEntity.ok(null);
+        } catch (TorneoException e) {
+            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+        }
+    }
 }

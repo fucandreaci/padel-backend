@@ -139,4 +139,12 @@ public class TorneoService {
 
         return DtoManager.getResponseTorneoDtoFromTorneo(torneoRepository.save(torneo), null);
     }
+
+    public void deleteTorneo(Integer id) throws TorneoException {
+        Torneo torneo = findById(id);
+        if (torneo == null) {
+            throw new TorneoException("Torneo non valido", HttpStatus.NOT_FOUND);
+        }
+        torneoRepository.delete(torneo);
+    }
 }
