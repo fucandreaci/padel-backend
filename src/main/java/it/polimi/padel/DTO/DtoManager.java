@@ -136,4 +136,15 @@ public class DtoManager {
 
         return responseTorneoDto;
     }
+
+    public static ResponseSegnalazioneDto getResponseSegnalazioneDtoFromSegnalazione(Segnalazione segnalazione, List<MessaggioDto> messaggi) {
+        ResponseSegnalazioneDto responseSegnalazioneDto = new ResponseSegnalazioneDto();
+        responseSegnalazioneDto.setId(segnalazione.getId());
+        responseSegnalazioneDto.setGestita(segnalazione.getGestita());
+        responseSegnalazioneDto.setChatId(segnalazione.getChatId());
+        responseSegnalazioneDto.setMessaggioId(segnalazione.getMessaggioId());
+        responseSegnalazioneDto.setMessaggi(messaggi);
+
+        return responseSegnalazioneDto;
+    }
 }

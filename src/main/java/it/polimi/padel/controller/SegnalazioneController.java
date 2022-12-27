@@ -5,6 +5,7 @@ import it.polimi.padel.exception.SegnalazioneException;
 import it.polimi.padel.service.SegnalazioneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -29,5 +30,15 @@ public class SegnalazioneController {
             return new ResponseEntity<>(e.getMessage(), e.getStatus());
         }
         return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("")
+    @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).ADMIN)")
+    public ResponseEntity<?> getSegnalazioniNonGestite () {
+        try {
+            return ResponseEntity.ok(segnalazioneService.getSegnalazioniNonGestite());
+        } catch (SegnalazioneException e) {
+            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+        }
     }
 }

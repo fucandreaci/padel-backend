@@ -1,7 +1,10 @@
 package it.polimi.padel.service;
 
+import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
@@ -15,6 +18,11 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class FirebaseService {
@@ -59,4 +67,18 @@ public class FirebaseService {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         dbFirestore.collection(idLower + "_" + idHigher).add(messaggioDto);
     }
+
+    public Map<String, MessaggioDto> getMessaggiByChatId(String chatId) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future = dbFirestore.collection(chatId).get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+
+        Map<String, MessaggioDto> messaggi = new HashMap<>();
+        //List<MessaggioDto> messaggi = new ArrayList<>();
+        for (QueryDocumentSnapshot document : documents) {
+            messaggi.put(document.getId(), document.toObject(MessaggioDto.class));
+        }
+        return messaggi;
+    }
+
 }

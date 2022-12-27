@@ -20,4 +20,5 @@ public class Segnalazione {
 
     private String chatId;
     private String messaggioId;
+    private Boolean gestita;
 }
