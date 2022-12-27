@@ -68,6 +68,13 @@ public class FirebaseService {
         dbFirestore.collection(idLower + "_" + idHigher).add(messaggioDto);
     }
 
+    /**
+     * Restituisce tutti i messaggi tra due utenti
+     * @param chatId
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public Map<String, MessaggioDto> getMessaggiByChatId(String chatId) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<QuerySnapshot> future = dbFirestore.collection(chatId).get();
@@ -79,6 +86,19 @@ public class FirebaseService {
             messaggi.put(document.getId(), document.toObject(MessaggioDto.class));
         }
         return messaggi;
+    }
+
+    /**
+     * Restituisce l'id dell'utente che ha inviato il messaggio
+     * @param chatId
+     * @param messageId
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public Integer getUserIdSender (String chatId, String messageId) throws ExecutionException, InterruptedException {
+        Map<String, MessaggioDto> messaggi = getMessaggiByChatId(chatId);
+        return messaggi.get(messageId).getSender().getId();
     }
 
 }

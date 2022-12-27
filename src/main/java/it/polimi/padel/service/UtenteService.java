@@ -122,4 +122,8 @@ public class UtenteService {
         List<Utente> utentiNonAmici = utenteRepository.findUtentiNonAmici(user);
         return utentiNonAmici.stream().map(DtoManager::getResponseAmiciziaDtoFromUtente).collect(Collectors.toList());
     }
+
+    public Utente updateUtente(Utente utente) {
+        return utenteRepository.save(utente);
+    }
 }

@@ -20,4 +20,5 @@ public class Utente {
     private String email;
     private String password;
     private Ruolo ruolo;
+    private Boolean chatBloccata;
 }

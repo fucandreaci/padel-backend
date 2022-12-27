@@ -1,5 +1,6 @@
 package it.polimi.padel.controller;
 
+import it.polimi.padel.DTO.RequestGestioneSegnalazioneDto;
 import it.polimi.padel.DTO.RequestInviaSegnalazioneDto;
 import it.polimi.padel.exception.SegnalazioneException;
 import it.polimi.padel.service.SegnalazioneService;
@@ -32,6 +33,10 @@ public class SegnalazioneController {
         return ResponseEntity.ok(null);
     }
 
+    /**
+     * Endpoint per ottenere le segnalazioni non gestite
+     * @return
+     */
     @GetMapping("")
     @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).ADMIN)")
     public ResponseEntity<?> getSegnalazioniNonGestite () {
@@ -40,5 +45,16 @@ public class SegnalazioneController {
         } catch (SegnalazioneException e) {
             return new ResponseEntity<>(e.getMessage(), e.getStatus());
         }
+    }
+
+    @PostMapping("/gestisci")
+    @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).ADMIN)")
+    public ResponseEntity<?> gestisciSegnalazione (@RequestBody RequestGestioneSegnalazioneDto gestioneSegnalazioneDto) {
+        try {
+            segnalazioneService.gestisciSegnalazione(gestioneSegnalazioneDto);
+        } catch (SegnalazioneException e) {
+            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+        }
+        return ResponseEntity.ok(null);
     }
 }

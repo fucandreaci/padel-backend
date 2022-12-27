@@ -1,11 +1,9 @@
 package it.polimi.padel.service;
 
-import it.polimi.padel.DTO.DtoManager;
-import it.polimi.padel.DTO.MessaggioDto;
-import it.polimi.padel.DTO.RequestInviaSegnalazioneDto;
-import it.polimi.padel.DTO.ResponseSegnalazioneDto;
+import it.polimi.padel.DTO.*;
 import it.polimi.padel.exception.SegnalazioneException;
 import it.polimi.padel.model.Segnalazione;
+import it.polimi.padel.model.Utente;
 import it.polimi.padel.repository.SegnalazioneRepository;
 import it.polimi.padel.utils.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,13 @@ public class SegnalazioneService {
 
     @Autowired
     private FirebaseService firebaseService;
+
+    @Autowired
+    private UtenteService utenteService;
+
+    public Segnalazione getById(Integer id) {
+        return segnalazioneRepository.findById(id).orElse(null);
+    }
 
     /**
      * Controlla se esiste già una segnalazione per uno specifico messaggio
@@ -58,6 +63,11 @@ public class SegnalazioneService {
         return segnalazioneRepository.save(segnalazione);
     }
 
+    /**
+     * Restituisce la lista delle segnalazioni non gestite
+     * @return
+     * @throws SegnalazioneException
+     */
     public List<ResponseSegnalazioneDto> getSegnalazioniNonGestite() throws SegnalazioneException {
         List<Segnalazione> segnalazioni = segnalazioneRepository.getSegnalazionesByGestitaFalse();
         List<ResponseSegnalazioneDto> response = new ArrayList<>();
@@ -74,5 +84,34 @@ public class SegnalazioneService {
         }
 
         return response;
+    }
+
+    public void gestisciSegnalazione (RequestGestioneSegnalazioneDto segnalazioneDto) throws SegnalazioneException {
+        Segnalazione segnalazione = getById(segnalazioneDto.getId());
+        if (segnalazione == null) {
+            throw new SegnalazioneException("Segnalazione non trovata", HttpStatus.NOT_FOUND);
+        }
+
+        if (segnalazione.getGestita()) {
+            throw new SegnalazioneException("Segnalazione già gestita", HttpStatus.BAD_REQUEST);
+        }
+
+        Utente utente;
+        try {
+            utente = utenteService.findById(firebaseService.getUserIdSender(segnalazione.getChatId(), segnalazione.getMessaggioId()));
+        } catch (ExecutionException | InterruptedException e) {
+            throw new SegnalazioneException("Errore nel recupero dell'utente", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if (utente == null) {
+            throw new SegnalazioneException("Utente non trovato", HttpStatus.NOT_FOUND);
+        }
+
+        if (segnalazioneDto.getBlocco()) {
+            utente.setChatBloccata(true);
+            utenteService.updateUtente(utente);
+        }
+        segnalazione.setGestita(true);
+        segnalazioneRepository.save(segnalazione);
     }
 }
