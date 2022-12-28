@@ -24,13 +24,22 @@ public class MessaggioController {
 
     /**
      * Invia un nuovo messaggio ad un utente
+     *
      * @param messaggioDto
      * @return
      */
     @PostMapping("/invia")
-    public ResponseEntity<?> inviaMessaggio (@Valid @RequestBody InviaMessaggioDto messaggioDto) {
+    public ResponseEntity<?> inviaMessaggio(@Valid @RequestBody InviaMessaggioDto messaggioDto) {
         Utente richiedente = utenteService.findFromJWT();
         Utente destinatario;
+
+        try {
+            if (richiedente.getChatBloccata()) {
+                throw new UserException("La chat è bloccata", HttpStatus.BAD_REQUEST);
+            }
+        } catch (UserException e) {
+            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+        }
 
         try {
             destinatario = utenteService.findById(messaggioDto.getIdDestinatario());
