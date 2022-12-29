@@ -16,6 +16,11 @@ public class CouponController {
     @Autowired
     private CouponService couponService;
 
+    @GetMapping("")
+    @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).ADMIN)")
+    public ResponseEntity<?> getAll () {
+        return ResponseEntity.ok(couponService.getAll());
+    }
 
     /**
      * Genera un coupon
@@ -27,6 +32,22 @@ public class CouponController {
     public ResponseEntity<?> createCoupon(@Valid @RequestBody RequestGenerateCouponDto requestGenerateCouponDto) {
         try {
             return ResponseEntity.ok(couponService.generateCoupon(requestGenerateCouponDto));
+        } catch (CouponException e) {
+            return new ResponseEntity<>(e.getError(), e.getStatus());
+        }
+    }
+
+    /**
+     * Elimina un coupon
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_' + T(it.polimi.padel.model.Ruolo).ADMIN)")
+    public ResponseEntity<?> deleteCoupon(@PathVariable Integer id) {
+        try {
+            couponService.deleteCoupon(id);
+            return ResponseEntity.ok(null);
         } catch (CouponException e) {
             return new ResponseEntity<>(e.getError(), e.getStatus());
         }
