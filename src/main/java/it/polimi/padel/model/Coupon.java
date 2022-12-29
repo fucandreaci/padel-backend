@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
@@ -20,6 +17,9 @@ public class Coupon {
     private String codice;
     private Float valore;
     private TipoCoupon tipo;
+
+    @OneToOne(mappedBy = "coupon")
+    private Prenotazione prenotazione;
 
     public enum TipoCoupon {
         PERCENTUALE, EURO

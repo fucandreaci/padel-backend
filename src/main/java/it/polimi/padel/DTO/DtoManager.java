@@ -147,4 +147,14 @@ public class DtoManager {
 
         return responseSegnalazioneDto;
     }
+
+    public static ResponseCouponDto getResponseCouponDtoFromCoupon(Coupon coupon) {
+        ResponseCouponDto responseCouponDto = new ResponseCouponDto();
+        responseCouponDto.setId(coupon.getId());
+        responseCouponDto.setCodice(coupon.getCodice());
+        responseCouponDto.setTipo(coupon.getTipo());
+        responseCouponDto.setValore(coupon.getValore());
+        responseCouponDto.setUtilizzato(coupon.getPrenotazione() != null);
+        return responseCouponDto;
+    }
 }
