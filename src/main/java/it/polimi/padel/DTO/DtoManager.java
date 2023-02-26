@@ -77,13 +77,22 @@ public class DtoManager {
         return responseAmiciziaDto;
     }
 
+    public static CouponDto getCouponDtoFromCoupon(Coupon coupon) {
+        CouponDto couponDto = new CouponDto();
+        couponDto.setCodice(coupon.getCodice());
+        couponDto.setId(coupon.getId());
+        couponDto.setTipo(coupon.getTipo());
+        couponDto.setValore(coupon.getValore());
+        return couponDto;
+    }
+
     public static ResponsePrenotazioneWithTypeDto getPreotazioneWithTypeDtoFromPrenotazione(Prenotazione prenotazione) {
         ResponsePrenotazioneWithTypeDto responsePrenotazioneWithTypeDto = new ResponsePrenotazioneWithTypeDto();
         responsePrenotazioneWithTypeDto.setId(prenotazione.getId());
         responsePrenotazioneWithTypeDto.setDa(prenotazione.getDa());
         responsePrenotazioneWithTypeDto.setA(prenotazione.getA());
         responsePrenotazioneWithTypeDto.setCampo(getCampoDtoFromCampo(prenotazione.getCampo()));
-        responsePrenotazioneWithTypeDto.setCoupon(prenotazione.getCoupon());
+        responsePrenotazioneWithTypeDto.setCoupon(getCouponDtoFromCoupon(prenotazione.getCoupon()));
         if (prenotazione.getLezionePrivata() != null) {
             responsePrenotazioneWithTypeDto.setType(PrenotazioneType.LEZIONE_PRIVATA);
             responsePrenotazioneWithTypeDto.setLezioniPrivate(getResponseLezionePrivataDtoFromLezionePrivata(prenotazione));
