@@ -78,6 +78,9 @@ public class DtoManager {
     }
 
     public static CouponDto getCouponDtoFromCoupon(Coupon coupon) {
+        if (coupon == null)
+            return null;
+
         CouponDto couponDto = new CouponDto();
         couponDto.setCodice(coupon.getCodice());
         couponDto.setId(coupon.getId());

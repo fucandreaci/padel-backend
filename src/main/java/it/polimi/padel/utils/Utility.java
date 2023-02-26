@@ -5,6 +5,8 @@ import it.polimi.padel.model.parsables.OrarioStruttura;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -42,7 +44,7 @@ public class Utility {
         LocalTime daTime = da.toLocalTime();
         LocalTime aTime = a.toLocalTime();
 
-        return orarioStruttura.getDalle().isBefore(daTime) && orarioStruttura.getAlle().isAfter(aTime);
+        return (daTime.isAfter(orarioStruttura.getDalle()) || daTime.equals(orarioStruttura.getDalle())) && (aTime.isBefore(orarioStruttura.getAlle()) || aTime.equals(orarioStruttura.getAlle()));
     }
 
     /**
@@ -127,5 +129,10 @@ public class Utility {
             sb.append(characters.charAt(index));
         }
         return sb.toString();
+    }
+
+    public static LocalDateTime getTimeZonedDate (LocalDateTime date) throws Exception {
+        ZonedDateTime daZonedDateTime = ZonedDateTime.of(date, ZoneId.of("UTC"));
+        return daZonedDateTime.withZoneSameInstant(ZoneId.of("Europe/Rome")).toLocalDateTime();
     }
 }
