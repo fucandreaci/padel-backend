@@ -8,8 +8,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PrenotazioneRepository extends CrudRepository<Prenotazione, Integer> {
-    @Query("SELECT p FROM Prenotazione p WHERE p.campo.id = ?1 AND p.da <= ?3 AND p.a >= ?2")
-    List<Prenotazione> isCampoLibero (Integer idCampo, LocalDateTime da, LocalDateTime a);
+    @Query("SELECT count(*) FROM Prenotazione p WHERE p.campo.id = ?1 AND (" +
+            "(p.da <= ?2 AND p.a > ?2) OR (p.da < ?3 AND p.a >= ?3) OR (p.da >= ?2 AND p.a <= ?3)" +
+            ")")
+    Integer getNumPrenotazioniByDateIntervalAndCampo(Integer idCampo, LocalDateTime da, LocalDateTime a);
 
     @Query("SELECT p FROM Prenotazione p INNER JOIN LezionePrivata l ON l.id = p.lezionePrivata.id WHERE l.maestro.id = ?1 AND p.da <= ?3 AND p.a >= ?2")
     List<Prenotazione> isMaestroLibero (Integer idMaestro, LocalDateTime da, LocalDateTime a);

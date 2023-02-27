@@ -4,6 +4,7 @@ import it.polimi.padel.DTO.DtoManager;
 import it.polimi.padel.DTO.RequestPrenotazioneDto;
 import it.polimi.padel.DTO.ResponsePrenotazioneWithTypeDto;
 import it.polimi.padel.exception.CampoNotFoundException;
+import it.polimi.padel.exception.CampoOccupatoException;
 import it.polimi.padel.exception.GenericException;
 import it.polimi.padel.exception.StrutturaChiusaException;
 import it.polimi.padel.model.Campo;
@@ -43,7 +44,7 @@ public class PrenotazioneService {
      * @return
      */
     public boolean isCampoLibero (Integer idCampo, LocalDateTime da, LocalDateTime a) {
-        return !prenotazioneRepository.isCampoLibero(idCampo, da, a).isEmpty();
+        return prenotazioneRepository.getNumPrenotazioniByDateIntervalAndCampo(idCampo, da, a) == 0;
     }
 
     /**
@@ -77,10 +78,9 @@ public class PrenotazioneService {
             throw new GenericException(HttpStatus.BAD_REQUEST, "Date non valide");
         }
 
-        // FIXME: Non funziona bene
-        /*if (!isCampoLibero(campo.getId(), prenotazione.getDa(), prenotazione.getA())) {
+        if (!isCampoLibero(campo.getId(), prenotazione.getDa(), prenotazione.getA())) {
             throw new CampoOccupatoException("Campo non disponibile", HttpStatus.BAD_REQUEST);
-        }*/
+        }
 
         LocalDateTime da;
         LocalDateTime a;

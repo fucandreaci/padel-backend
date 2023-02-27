@@ -131,6 +131,13 @@ public class Utility {
         return sb.toString();
     }
 
+
+    /**
+     * Converte una data da UTC a quella locale (Europe/Rome)
+     * @param date
+     * @return
+     * @throws Exception
+     */
     public static LocalDateTime getTimeZonedDate (LocalDateTime date) throws Exception {
         ZonedDateTime daZonedDateTime = ZonedDateTime.of(date, ZoneId.of("UTC"));
         return daZonedDateTime.withZoneSameInstant(ZoneId.of("Europe/Rome")).toLocalDateTime();
