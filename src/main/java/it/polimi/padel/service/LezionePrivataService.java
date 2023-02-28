@@ -2,14 +2,11 @@ package it.polimi.padel.service;
 
 import it.polimi.padel.DTO.DtoManager;
 import it.polimi.padel.DTO.RequestLezionePrivataDto;
-import it.polimi.padel.DTO.ResponseLezionePrivataDto;
 import it.polimi.padel.DTO.ResponsePrenotazioneWithTypeDto;
+import it.polimi.padel.exception.CouponException;
 import it.polimi.padel.exception.GenericException;
 import it.polimi.padel.exception.MaestroNotFoundException;
-import it.polimi.padel.model.LezionePrivata;
-import it.polimi.padel.model.Maestro;
-import it.polimi.padel.model.Prenotazione;
-import it.polimi.padel.model.Utente;
+import it.polimi.padel.model.*;
 import it.polimi.padel.repository.LezionePrivataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +25,9 @@ public class LezionePrivataService {
 
     @Autowired
     private MaestroService maestroService;
+
+    @Autowired
+    private CouponService couponService;
 
     /**
      * Prenota una lezione privata
@@ -53,6 +53,21 @@ public class LezionePrivataService {
 
         Prenotazione prenotazione = prenotazioneService.prenotaCampo(lezionePrivataDto);
         prenotazione.setLezionePrivata(lezionePrivata);
+
+        if (!lezionePrivataDto.getCodiceCoupon().equals("")) {
+            Coupon coupon = couponService.getCoupon(lezionePrivataDto.getCodiceCoupon());
+            if (coupon == null) {
+                throw new CouponException("Il coupon inserito non esiste", HttpStatus.NOT_FOUND);
+            }
+
+            if (couponService.isCouponUtilizzato(lezionePrivataDto.getCodiceCoupon())) {
+                throw new CouponException("Il coupon inserito è già stato utilizzato", HttpStatus.BAD_REQUEST);
+            }
+
+            prenotazione.setCoupon(coupon);
+        }
+
+
         prenotazione = prenotazioneService.savePrenotazione(prenotazione);
 
         return DtoManager.getPreotazioneWithTypeDtoFromPrenotazione(prenotazione);

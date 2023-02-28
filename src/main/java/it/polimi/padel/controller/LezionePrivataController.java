@@ -33,7 +33,7 @@ public class LezionePrivataController {
         try {
             return ResponseEntity.ok(lezionePrivataService.prenotaLezionePrivata(lezionePrivataDto, richiedente));
         } catch (GenericException e) {
-            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+            return new ResponseEntity<>(e.getError(), e.getStatus());
         }
     }
 }
