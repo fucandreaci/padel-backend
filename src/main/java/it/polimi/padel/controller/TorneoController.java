@@ -57,7 +57,7 @@ public class TorneoController {
             torneoService.iscriviUtente(dto.getIdTorneo(), richiedente);
             return ResponseEntity.ok(null);
         } catch (TorneoException e) {
-            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+            return new ResponseEntity<>(e.getError(), e.getStatus());
         }
     }
 
@@ -73,7 +73,7 @@ public class TorneoController {
             torneoService.rimuoviUtente(dto.getIdTorneo(), richiedente);
             return ResponseEntity.ok(null);
         } catch (TorneoException e) {
-            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+            return new ResponseEntity<>(e.getError(), e.getStatus());
         }
     }
 
@@ -89,7 +89,7 @@ public class TorneoController {
         try {
             return ResponseEntity.ok(torneoService.modificaTorneo(id, dto));
         } catch (TorneoException e) {
-            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+            return new ResponseEntity<>(e.getError(), e.getStatus());
         }
     }
 
@@ -100,7 +100,7 @@ public class TorneoController {
             torneoService.deleteTorneo(id);
             return ResponseEntity.ok(null);
         } catch (TorneoException e) {
-            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+            return new ResponseEntity<>(e.getError(), e.getStatus());
         }
     }
 }

@@ -38,7 +38,7 @@ public class MessaggioController {
                 throw new UserException("La chat è bloccata", HttpStatus.BAD_REQUEST);
             }
         } catch (UserException e) {
-            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+            return new ResponseEntity<>(e.getError(), e.getStatus());
         }
 
         try {
@@ -49,7 +49,7 @@ public class MessaggioController {
             }
             firebaseService.inviaMessaggio(richiedente, destinatario, messaggioDto.getMessaggio());
         } catch (UserException e) {
-            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+            return new ResponseEntity<>(e.getError(), e.getStatus());
         }
         return ResponseEntity.ok(null);
     }

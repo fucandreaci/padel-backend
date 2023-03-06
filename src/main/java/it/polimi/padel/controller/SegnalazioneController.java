@@ -28,7 +28,7 @@ public class SegnalazioneController {
         try {
             segnalazioneService.segnalaMessaggio(segnalazioneDto);
         } catch (SegnalazioneException e) {
-            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+            return new ResponseEntity<>(e.getError(), e.getStatus());
         }
         return ResponseEntity.ok(null);
     }
@@ -43,7 +43,7 @@ public class SegnalazioneController {
         try {
             return ResponseEntity.ok(segnalazioneService.getSegnalazioniNonGestite());
         } catch (SegnalazioneException e) {
-            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+            return new ResponseEntity<>(e.getError(), e.getStatus());
         }
     }
 
@@ -53,7 +53,7 @@ public class SegnalazioneController {
         try {
             segnalazioneService.gestisciSegnalazione(gestioneSegnalazioneDto);
         } catch (SegnalazioneException e) {
-            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+            return new ResponseEntity<>(e.getError(), e.getStatus());
         }
         return ResponseEntity.ok(null);
     }

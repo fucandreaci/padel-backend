@@ -35,7 +35,7 @@ public class AmiciController {
         try {
             return ResponseEntity.ok(amiciService.inviaRichiestaAmicizia(requestAmiciziaDto, richiedente));
         } catch (UserException | AmiciziaException e) {
-            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+            return new ResponseEntity<>(e.getError(), e.getStatus());
         }
     }
 
@@ -51,7 +51,7 @@ public class AmiciController {
         try {
             return ResponseEntity.ok(amiciService.accettaRichiestaAmicizia(confermaAmiciziaDto, richiedente));
         } catch (AmiciziaException e) {
-            return new ResponseEntity<>(e.getMessage(), e.getStatus());
+            return new ResponseEntity<>(e.getError(), e.getStatus());
         }
     }
 
