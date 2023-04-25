@@ -5,9 +5,11 @@ import it.polimi.padel.model.Informazioni;
 import it.polimi.padel.model.parsables.*;
 import it.polimi.padel.repository.InformazioniRepository;
 import it.polimi.padel.utils.Costanti;
+import it.polimi.padel.utils.Utility;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -164,4 +166,54 @@ public class InformazioniService {
 
         return regole;
     }
+
+    /**
+     * Aggiorna le regole
+     * @param regole
+     * @return
+     * @throws GenericException
+     */
+    public List<Regola> updateRegole (List<Regola> regole) throws GenericException {
+        Informazioni informazioni = getByChiave(Costanti.REGOLE);
+        for (Regola regola : regole) {
+            if (regola.getNome() == null || regola.getDescrizione() == null) {
+                throw new GenericException(HttpStatus.BAD_REQUEST, "Nome e descrizione obbligatori");
+            }
+        }
+        JSONArray jsonArray = new JSONArray(regole);
+        informazioni.setValore(jsonArray.toString());
+        informazioniRepository.save(informazioni);
+
+        return getRegole();
+    }
+
+    public List<OrarioStruttura> updateOrari (List<OrarioStruttura> orari) throws GenericException {
+        Informazioni informazioni = getByChiave(Costanti.ORARI);
+        if (!Utility.isOrariValid(orari)) {
+            throw new GenericException(HttpStatus.BAD_REQUEST, "Orari non validi");
+        }
+
+        JSONArray jsonArray = new JSONArray(orari);
+        informazioni.setValore(jsonArray.toString());
+        informazioniRepository.save(informazioni);
+
+        return getOrariApertura();
+    }
+
+    public List<InfoVarie> updateNews (String news) throws GenericException {
+        Informazioni informazioni = getByChiave(Costanti.INFO);
+        List<InfoVarie> infoVarie = getInfoVarie();
+
+        InfoVarie newsItem = new InfoVarie();
+        newsItem.setNome("News");
+        newsItem.setDescrizione(news);
+        infoVarie.add(newsItem);
+
+        JSONArray jsonArray = new JSONArray(infoVarie);
+        informazioni.setValore(jsonArray.toString());
+        informazioniRepository.save(informazioni);
+
+        return getNews();
+    }
+
 }

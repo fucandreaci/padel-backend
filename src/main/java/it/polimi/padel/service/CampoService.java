@@ -35,7 +35,8 @@ public class CampoService {
      * @return
      */
     public ResponseCampoDto aggiungiCampo (RequestCampoDto requestCampoDto) {
-        Campo campo = campoRepository.save(DtoManager.getCampoFromRequestCampoDto(requestCampoDto));
+        Campo campo = DtoManager.getCampoFromRequestCampoDto(requestCampoDto);
+        campo = campoRepository.save(campo);
         return DtoManager.getResponseCampoDtoFromCampo(campo);
     }
 

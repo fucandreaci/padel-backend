@@ -1,7 +1,9 @@
 package it.polimi.padel.utils;
 
 import it.polimi.padel.DTO.MessaggioDto;
+import it.polimi.padel.exception.GenericException;
 import it.polimi.padel.model.parsables.OrarioStruttura;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -141,5 +143,54 @@ public class Utility {
     public static LocalDateTime getTimeZonedDate (LocalDateTime date) throws Exception {
         ZonedDateTime daZonedDateTime = ZonedDateTime.of(date, ZoneId.of("UTC"));
         return daZonedDateTime.withZoneSameInstant(ZoneId.of("Europe/Rome")).toLocalDateTime();
+    }
+
+    public static boolean isOrariValid (List<OrarioStruttura> orari) throws GenericException {
+        List<String> giorni = new ArrayList<>();
+        giorni.add("LUNEDI");
+        giorni.add("MARTEDI");
+        giorni.add("MERCOLEDI");
+        giorni.add("GIOVEDI");
+        giorni.add("VENERDI");
+        giorni.add("SABATO");
+        giorni.add("DOMENICA");
+
+        for (OrarioStruttura orario : orari) {
+            if (orario.getDalle() == null || orario.getAlle() == null || orario.getGiorno() == null) {
+                throw new GenericException(HttpStatus.BAD_REQUEST, "Giorno e orari obbligatori");
+            }
+
+            if (!giorni.contains(orario.getGiorno().toUpperCase())) {
+                throw new GenericException(HttpStatus.BAD_REQUEST, "Giorno non valido");
+            }
+
+            if (orario.getDalle().isAfter(orario.getAlle())) {
+                throw new GenericException(HttpStatus.BAD_REQUEST, "Orario di apertura non valido");
+            }
+
+            if (orario.getAlle().isBefore(orario.getDalle())) {
+                throw new GenericException(HttpStatus.BAD_REQUEST, "Orario di chiusura non valido");
+            }
+
+            if (orario.getDalle().equals(orario.getAlle())) {
+                throw new GenericException(HttpStatus.BAD_REQUEST, "Orario di apertura e chiusura non validi");
+            }
+
+            if (orario.getDalle().isBefore(LocalTime.of(0, 0)) || orario.getDalle().isAfter(LocalTime.of(23, 59))) {
+                throw new GenericException(HttpStatus.BAD_REQUEST, "Orario di apertura non valido");
+            }
+
+            if (orario.getAlle().isBefore(LocalTime.of(0, 0)) || orario.getAlle().isAfter(LocalTime.of(23, 59))) {
+                throw new GenericException(HttpStatus.BAD_REQUEST, "Orario di chiusura non valido");
+            }
+
+            giorni.remove(orario.getGiorno().toUpperCase());
+        }
+
+        if (giorni.size() > 0) {
+            throw new GenericException(HttpStatus.BAD_REQUEST, "Giorni mancanti");
+        }
+
+        return true;
     }
 }
