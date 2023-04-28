@@ -25,6 +25,10 @@ public class AuthController {
      * @param requestLoginDTO
      * @return
      */
+    /*
+    * Passo: email e password
+    * Restituisco: token, ruolo, id
+    * */
     @PostMapping("/login")
     public ResponseEntity<?> login (@Valid @RequestBody RequestLoginDto requestLoginDTO) {
         try {
