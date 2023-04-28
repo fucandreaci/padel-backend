@@ -189,4 +189,10 @@ public class Stub {
         dto.setMessaggio("Messaggio");
         return dto;
     }
+
+    public static RequestPartitaDto getRequestPartitaDtoStub () {
+        RequestPartitaDto dto = new RequestPartitaDto();
+        dto.setIdCampo(1);
+        return dto;
+    }
 }
