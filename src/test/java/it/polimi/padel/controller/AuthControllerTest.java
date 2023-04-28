@@ -1,10 +1,4 @@
-package it.polimi.padel.controller;/*
- * File: AuthController
- * Project: Padel Backend
- * File Created: 25/04/23 - 16:51
- * Author: Andrea Fucci (fucciandrea01@gmail.com)
- * Copyright © 2023-2023 Andrea Fucci
- */
+package it.polimi.padel.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.padel.DTO.RequestLoginDto;

@@ -1,11 +1,4 @@
-package it.polimi.padel.DTO;/*
- * File: RequestInformazioniDto
- * Project: Padel Backend
- * File Created: 06/03/23 - 18:51
- * Author: Andrea Fucci (fucciandrea01@gmail.com)
- * Copyright © 2023-2023 Andrea Fucci
- */
-
+package it.polimi.padel.DTO;
 import it.polimi.padel.model.parsables.OrarioStruttura;
 import lombok.AllArgsConstructor;
 import lombok.Data;

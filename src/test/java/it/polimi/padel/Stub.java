@@ -1,10 +1,4 @@
-package it.polimi.padel;/*
- * File: stub
- * Project: Padel Backend
- * File Created: 25/04/23 - 16:53
- * Author: Andrea Fucci (fucciandrea01@gmail.com)
- * Copyright © 2023-2023 Andrea Fucci
- */
+package it.polimi.padel;
 
 import it.polimi.padel.DTO.*;
 import it.polimi.padel.model.Ruolo;
@@ -74,6 +68,21 @@ public class Stub {
         RequestConfermaAmiciziaDto dto = new RequestConfermaAmiciziaDto();
         dto.setIdAmico(2);
         dto.setConferma(true);
+        return dto;
+    }
+
+    public static RequestCampoDto getRequestCampoDtoStub () {
+        RequestCampoDto dto = new RequestCampoDto();
+        dto.setNome("Campo 1");
+        dto.setUrlImmagine("url immagine");
+        return dto;
+    }
+
+    public static ResponseCampoDto getResponseCampoDtoStub () {
+        ResponseCampoDto dto = new ResponseCampoDto();
+        dto.setId(1);
+        dto.setNome("Campo 1");
+        dto.setUrlImmagine("url immagine");
         return dto;
     }
 }
