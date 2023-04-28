@@ -2,8 +2,17 @@ package it.polimi.padel;
 
 import it.polimi.padel.DTO.*;
 import it.polimi.padel.model.Coupon;
+import it.polimi.padel.model.Informazioni;
 import it.polimi.padel.model.Ruolo;
 import it.polimi.padel.model.Utente;
+import it.polimi.padel.model.parsables.Contatto;
+import it.polimi.padel.model.parsables.InfoVarie;
+import it.polimi.padel.model.parsables.OrarioStruttura;
+import it.polimi.padel.model.parsables.Regola;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
 
 public class Stub {
     public static RequestLoginDto getRequestLoginDtoStub() {
@@ -87,16 +96,6 @@ public class Stub {
         return dto;
     }
 
-    public static ResponseCouponDto getResponseCouponDtoStub () {
-        ResponseCouponDto dto = new ResponseCouponDto();
-        dto.setId(1);
-        dto.setCodice("codice");
-        dto.setValore(10.0f);
-        dto.setTipo(Coupon.TipoCoupon.EURO);
-        dto.setUtilizzato(false);
-        return dto;
-    }
-
     public static Coupon getCouponStub () {
         Coupon coupon = new Coupon();
         coupon.setId(1);
@@ -110,6 +109,69 @@ public class Stub {
         RequestGenerateCouponDto dto = new RequestGenerateCouponDto();
         dto.setTipo(Coupon.TipoCoupon.EURO.toString());
         dto.setValore(10.0f);
+        return dto;
+    }
+
+    public static Informazioni getInformazioniStub () {
+        Informazioni informazioni = new Informazioni();
+        informazioni.setId(1);
+        informazioni.setChiave("Informazioni 1");
+        informazioni.setValore("Descrizione 1");
+        return informazioni;
+    }
+
+    public static InfoVarie getInfoVarieStub () {
+        InfoVarie infoVarie = new InfoVarie();
+        infoVarie.setNome("Informazioni 1");
+        infoVarie.setDescrizione("Descrizione 1");
+        return infoVarie;
+    }
+
+    public static Contatto getContattoStub () {
+        Contatto contatto = new Contatto();
+        contatto.setNome("Contatto 1");
+        contatto.setDescrizione("Valore 1");
+        return contatto;
+    }
+
+    public static OrarioStruttura getOrarioStrutturaStub () {
+        OrarioStruttura orarioStruttura = new OrarioStruttura();
+        orarioStruttura.setGiorno("Lunedì");
+        orarioStruttura.setDalle(LocalTime.of(8, 0));
+        orarioStruttura.setAlle(LocalTime.of(20, 0));
+        return orarioStruttura;
+    }
+
+    public static Regola getRegolaStub () {
+        Regola regola = new Regola();
+        regola.setNome("Regola 1");
+        regola.setDescrizione("Descrizione 1");
+        return regola;
+    }
+
+    public static RequestRegoleDto getRequestRegoleDtoStub () {
+        RequestRegoleDto dto = new RequestRegoleDto();
+        dto.setRegole(List.of(getRegolaStub()));
+        return dto;
+    }
+
+    public static RequestNewsDto getRequestNewsDtoStub () {
+        RequestNewsDto dto = new RequestNewsDto();
+        dto.setNews("New news");
+        return dto;
+    }
+
+    public static RequestLezionePrivataDto getRequestLezionePrivataDtoStub () {
+        RequestLezionePrivataDto dto = new RequestLezionePrivataDto();
+        dto.setIdMaestro(1);
+        dto.setIdCampo(1);
+        return dto;
+    }
+
+    public static ResponsePrenotazioneWithTypeDto getResponsePrenotazioneWithTypeDtoStub () {
+        ResponsePrenotazioneWithTypeDto dto = new ResponsePrenotazioneWithTypeDto();
+        dto.setId(1);
+        dto.setType(PrenotazioneType.LEZIONE_PRIVATA);
         return dto;
     }
 }

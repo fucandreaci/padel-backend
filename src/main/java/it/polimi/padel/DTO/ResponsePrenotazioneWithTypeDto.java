@@ -15,6 +15,3 @@ public class ResponsePrenotazioneWithTypeDto extends ResponsePrenotazioneDto {
     private CouponDto coupon;
 }
 
-enum PrenotazioneType {
-    LEZIONE_PRIVATA, PARTITA
-}
