@@ -1,6 +1,7 @@
 package it.polimi.padel;
 
 import it.polimi.padel.DTO.*;
+import it.polimi.padel.model.Coupon;
 import it.polimi.padel.model.Ruolo;
 import it.polimi.padel.model.Utente;
 
@@ -83,6 +84,32 @@ public class Stub {
         dto.setId(1);
         dto.setNome("Campo 1");
         dto.setUrlImmagine("url immagine");
+        return dto;
+    }
+
+    public static ResponseCouponDto getResponseCouponDtoStub () {
+        ResponseCouponDto dto = new ResponseCouponDto();
+        dto.setId(1);
+        dto.setCodice("codice");
+        dto.setValore(10.0f);
+        dto.setTipo(Coupon.TipoCoupon.EURO);
+        dto.setUtilizzato(false);
+        return dto;
+    }
+
+    public static Coupon getCouponStub () {
+        Coupon coupon = new Coupon();
+        coupon.setId(1);
+        coupon.setCodice("codice");
+        coupon.setValore(10.0f);
+        coupon.setTipo(Coupon.TipoCoupon.EURO);
+        return coupon;
+    }
+
+    public static RequestGenerateCouponDto getRequestGenerateCouponDtoStub () {
+        RequestGenerateCouponDto dto = new RequestGenerateCouponDto();
+        dto.setTipo(Coupon.TipoCoupon.EURO.toString());
+        dto.setValore(10.0f);
         return dto;
     }
 }
