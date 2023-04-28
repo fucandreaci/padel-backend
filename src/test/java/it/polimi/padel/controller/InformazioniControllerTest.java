@@ -1,15 +1,10 @@
 package it.polimi.padel.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.polimi.padel.DTO.RequestGenerateCouponDto;
 import it.polimi.padel.DTO.RequestNewsDto;
-import it.polimi.padel.DTO.RequestOrariAperturaDto;
 import it.polimi.padel.DTO.RequestRegoleDto;
 import it.polimi.padel.Stub;
-import it.polimi.padel.exception.CouponException;
 import it.polimi.padel.exception.GenericException;
-import it.polimi.padel.model.Coupon;
-import it.polimi.padel.service.CouponService;
 import it.polimi.padel.service.InformazioniService;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,12 +23,10 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)

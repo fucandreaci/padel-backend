@@ -174,4 +174,19 @@ public class Stub {
         dto.setType(PrenotazioneType.LEZIONE_PRIVATA);
         return dto;
     }
+
+    public static ResponseMaestroDto getResponseMaestroDtoStub () {
+        ResponseMaestroDto dto = new ResponseMaestroDto();
+        dto.setId(1);
+        dto.setNome("Maestro 1");
+        dto.setCognome("Cognome 1");
+        return dto;
+    }
+
+    public static InviaMessaggioDto getInviaMessaggioDtoStub () {
+        InviaMessaggioDto dto = new InviaMessaggioDto();
+        dto.setIdDestinatario(1);
+        dto.setMessaggio("Messaggio");
+        return dto;
+    }
 }

@@ -1,7 +1,9 @@
 package it.polimi.padel.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.polimi.padel.DTO.*;
+import it.polimi.padel.DTO.RequestAmiciziaDto;
+import it.polimi.padel.DTO.RequestConfermaAmiciziaDto;
+import it.polimi.padel.DTO.ResponseAmiciziaDto;
 import it.polimi.padel.Stub;
 import it.polimi.padel.exception.AmiciziaException;
 import it.polimi.padel.exception.UserException;
