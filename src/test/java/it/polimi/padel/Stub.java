@@ -10,7 +10,6 @@ import it.polimi.padel.model.parsables.InfoVarie;
 import it.polimi.padel.model.parsables.OrarioStruttura;
 import it.polimi.padel.model.parsables.Regola;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -193,6 +192,61 @@ public class Stub {
     public static RequestPartitaDto getRequestPartitaDtoStub () {
         RequestPartitaDto dto = new RequestPartitaDto();
         dto.setIdCampo(1);
+        return dto;
+    }
+
+    public static RequestInviaSegnalazioneDto getRequestInviaSegnalazioneDtoStub () {
+        RequestInviaSegnalazioneDto dto = new RequestInviaSegnalazioneDto();
+        dto.setIdChat("chatId");
+        dto.setIdMessaggio("messageId");
+        return dto;
+    }
+
+    public static ResponseSegnalazioneDto getResponseSegnalazioneDtoStub () {
+        ResponseSegnalazioneDto dto = new ResponseSegnalazioneDto();
+        dto.setId(1);
+        dto.setChatId("chatId");
+        dto.setMessaggioId("messageId");
+        dto.setGestita(false);
+        return dto;
+    }
+
+    public static RequestGestioneSegnalazioneDto getRequestGestioneSegnalazioneDtoStub () {
+        RequestGestioneSegnalazioneDto dto = new RequestGestioneSegnalazioneDto();
+        dto.setId(1);
+        dto.setBlocco(true);
+        return dto;
+    }
+
+    public static RequestCreaTorneoDto getRequestCreaTorneoDtoStub () {
+        RequestCreaTorneoDto dto = new RequestCreaTorneoDto();
+        dto.setDescrizione("Torneo 1");
+        dto.setMaxPartecipanti(10);
+        return dto;
+    }
+
+    public static ResponseTorneoDto getResponseTorneoDtoStub () {
+        ResponseTorneoDto dto = new ResponseTorneoDto();
+        dto.setId(1);
+        dto.setDescrizione("Torneo 1");
+        dto.setMaxPartecipanti(10);
+        dto.setUtentePrenotato(false);
+        dto.setNumPartecipanti(0);
+        dto.setPrenotazioneAperta(true);
+        return dto;
+    }
+
+    public static RequestIscrizioneTorneoDto getRequestIscrizioneTorneoDtoStub () {
+        RequestIscrizioneTorneoDto dto = new RequestIscrizioneTorneoDto();
+        dto.setIdTorneo(1);
+        return dto;
+    }
+
+    public static RequestModificaTorneoDto getRequestModificaTorneoDtoStub () {
+        RequestModificaTorneoDto dto = new RequestModificaTorneoDto();
+        dto.setPrenotazioneAperta(true);
+        dto.setDescrizione("Torneo 1");
+        dto.setMaxPartecipanti(10);
         return dto;
     }
 }
