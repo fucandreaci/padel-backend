@@ -33,12 +33,14 @@ public class MessaggioController {
         Utente richiedente = utenteService.findFromJWT();
         Utente destinatario;
 
-        try {
-            if (richiedente.getChatBloccata()) {
-                throw new UserException("La chat è bloccata", HttpStatus.BAD_REQUEST);
+        if (richiedente.getChatBloccata() != null) {
+            try {
+                if (richiedente.getChatBloccata()) {
+                    throw new UserException("La chat è bloccata", HttpStatus.BAD_REQUEST);
+                }
+            } catch (UserException e) {
+                return new ResponseEntity<>(e.getError(), e.getStatus());
             }
-        } catch (UserException e) {
-            return new ResponseEntity<>(e.getError(), e.getStatus());
         }
 
         try {
