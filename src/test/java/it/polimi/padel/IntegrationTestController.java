@@ -1,10 +1,4 @@
-package it.polimi.padel;/*
- * File: IntegrationTestController
- * Project: Tombolup-backend
- * File Created: 07/08/22 - 12:50
- * Author: Andrea Fucci (fucciandrea01@gmail.com)
- * Copyright © 2022-2022 Andrea Fucci
- */
+package it.polimi.padel;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
